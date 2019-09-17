@@ -3,6 +3,10 @@
 <head>
   <title>Bar Crawler</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="js/maps.js"></script>
+  <script src="js/taplist.js"></script>
 </head>
 <body>
   <header class="mainHeader">
@@ -11,9 +15,11 @@
     <div class="budgetInfo">$100</div>
   </header>
   <div class="searchBar">Search goes here</div>
-  <div class="mapDisplay">
+  <div id="mapDisplay" class="mapDisplay">
     Map goes here
   </div>
-
-</body>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWq6apxh7IJs8njuJgCEJf5QPenKjrCYc&callback=initMap"></script>
+  </div>
+  </body>
 </html>
