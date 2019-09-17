@@ -1,9 +1,13 @@
-var darkSkyApi = "10645085591c29ce58fa6f682ac0ae69";
+const darkSkyApi = "10645085591c29ce58fa6f682ac0ae69";
 
+/* Class WeatherData takes in user's latitude and longitude coordinates
+*
+*/
 class WeatherData {
-  constructor(lat, lng) {
+  constructor(lat, lng, date) {
     this.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    this.coord = { "lat": lat, "lng": lng };
+    this.coord = { lat, lng };
+    this.date = date;
     this.currentDate = null;
     this.currentTemp = null;
     this.currentCondition = null;
@@ -21,24 +25,21 @@ class WeatherData {
     this.getWeatherDataSuccess = this.getWeatherDataSuccess.bind(this);
   }
   render() {
-    var currentWeather = "Currently: " + this.currentTemp + "deg " + this.currentCondition + " Today's high: " + this.forcast[0].high + " Today's low: " + this.forcast[0].low;
-    var weatherP = $("<p>").text(currentWeather);
-    var weatherStrings = [];
+    let currentWeather = `Currently: ${this.currentTemp} °F ${this.currentCondition} Today's high: ${this.forcast[0].high} Today's low: ${this.forcast[0].low}`;
+    let weatherP = $("<p>").text(currentWeather);
+    let weatherStrings = [];
     weatherStrings.push(currentWeather);
     this.domElements.current = weatherP;
     this.domElements.container.append(weatherP);
     for (var forcastIndex = 1; forcastIndex < this.forcast.length; forcastIndex++) {
-      var forcastString = this.days[this.forcast[forcastIndex].date.getDay()] + " " + (this.forcast[forcastIndex].date.getMonth() + 1) + "-" + (this.forcast[forcastIndex].date.getDate()) + " " + this.forcast[forcastIndex].summary + " high: " + this.forcast[forcastIndex].high + " low: " + this.forcast[forcastIndex].low;
+      let forcastString = `${this.days[this.forcast[forcastIndex].date.getDay()]} ${(this.forcast[forcastIndex].date.getMonth() + 1)}-${(this.forcast[forcastIndex].date.getDate())} ${this.forcast[forcastIndex].summary} high: ${this.forcast[forcastIndex].high}° low: ${this.forcast[forcastIndex].low}`;
       weatherStrings.push(forcastString);
-      var forcastP = $("<p>").text(forcastString);
+      let forcastP = $("<p>").text(forcastString);
       this.domElements.container.append(forcastP);
     }
   }
   getWeatherData() {
-    if (this.currentDate) {
-      return;
-    }
-    var ajaxConfigObject = {
+    let ajaxConfigObject = {
       dataType: "json",
       url: " https://api.darksky.net/forecast/" + darkSkyApi + "/" + this.coord.lat + "," + this.coord.lng,
       method: "get",
@@ -51,15 +52,15 @@ class WeatherData {
   getWeatherDataSuccess(data) {
     console.log(data);
     this.currentDate = this.createNewDate(data.currently.time);
-    this.currentTemp = data.currently.temperature;
+    this.currentTemp = parseInt(data.currently.temperature);
     this.currentCondition = data.currently.summary;
     this.currentIcon = data.currently.icon;
-    var eachDaysWeather = data.daily.data;
+    let eachDaysWeather = data.daily.data;
     for (var dayIndex = 0; dayIndex < eachDaysWeather.length - 1; dayIndex++) {
-      var forcastDay = {};
+      let forcastDay = {};
       forcastDay["date"] = this.createNewDate(eachDaysWeather[dayIndex].time);
-      forcastDay["high"] = eachDaysWeather[dayIndex].temperatureHigh;
-      forcastDay["low"] = eachDaysWeather[dayIndex].temperatureLow;
+      forcastDay["high"] = parseInt(eachDaysWeather[dayIndex].temperatureHigh);
+      forcastDay["low"] = parseInt(eachDaysWeather[dayIndex].temperatureLow);
       forcastDay["icon"] = eachDaysWeather[dayIndex].icon;
       forcastDay["summary"] = eachDaysWeather[dayIndex].summary;
       this.forcast.push(forcastDay);
@@ -71,6 +72,10 @@ class WeatherData {
   }
   getWeatherDataAlways() {
     console.log("Get weather data complete");
+  }
+  getNewWeather(lat, lng){
+    this.coord = { lat, lng };
+    this.getWeatherData();
   }
   createNewDate(linuxTime) {
     return new Date(linuxTime * 1000);
