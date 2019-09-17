@@ -8,13 +8,19 @@ class Marker {
     this.name = null;
   }
 
-  renderEvents = (event) => {
+  renderEvent = (event) => {
     // var/
     // console.log(event.venue.address)
     const position = {
       lat: parseFloat(event.venue.address.latitude),
       lng: parseFloat(event.venue.address.longitude)
     }
+    const icon = {
+      url: "assets/images/icons8-event-64.png", // url
+      scaledSize: new google.maps.Size(35, 35), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+    };
     // console.log(position)
     this.type = "events"
     this.name = event.name.text;
@@ -22,7 +28,7 @@ class Marker {
       position: position,
       map: this.map,
       title: event.name.text,
-      icon: ""
+      icon: icon
     })
       .addListener('click',
         this.clickHandler)
@@ -33,6 +39,13 @@ class Marker {
       lat: parseFloat(biz.coordinates.latitude),
       lng: parseFloat(biz.coordinates.longitude)
     }
+
+    const icon = {
+      url: "assets/images/icons8-beer-48.png", // url
+      scaledSize: new google.maps.Size(35, 35), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+    };
 
     this.type = "business";
     this.name = biz.name;
@@ -47,6 +60,6 @@ class Marker {
 
   clickHandler = () => {
     // should open up information about
-    console.log(this.data.name);
+    console.log(this.name);
   }
 }

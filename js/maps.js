@@ -33,7 +33,7 @@ class googleMap {
     events.events.map((event) => {
       const eventMarker = new Marker(this.mapObj, event);
       this.markers.events.push(eventMarker);
-      eventMarker.renderEvents(event);
+      eventMarker.renderEvent(event);
     })
   }
 
