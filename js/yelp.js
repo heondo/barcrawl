@@ -25,7 +25,8 @@ class Yelp {
       data: {
         'term' : 'bars',
         'latitude': latitude,
-        'longitude': longitude
+        'longitude': longitude,
+        'radius': 16093
       },
       success: this.processData,
       error: this.errorProcessingData
@@ -33,10 +34,15 @@ class Yelp {
   }
   processData(data) {
     this.businessesData = data;
-    return this.businessesData;
+    console.log(data);
+    console.log('Yelp Data has been recieved');
   }
 
   errorProcessingData() {
-    console.log('There was an error recieving data on this yelp object.');
+    console.log('There was an error recieving data on the yelp object.');
+  }
+
+  getData() {
+    return this.businessesData;
   }
 }
