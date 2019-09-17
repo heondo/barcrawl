@@ -25,18 +25,18 @@ class WeatherData {
     this.getWeatherDataSuccess = this.getWeatherDataSuccess.bind(this);
   }
   render() {
-    let currentWeatherContainer = $("<div>", {class: "currentWeatherContainer"});
-    let currentWeatherHeader = $("<p>",{class: "currentWeatherHeader", text: `Currently ${this.currentTemp}°`});
-    let currentWeatherIcon = $("<div>", {class: "currentWeatherIcon"}).css("background-image", `url("images/${this.currentIcon}.png)`);
-    let todayHighLow = $("<p>",{class: "todayHighLow", text: `${this.forcast[0].high} ${this.forcast[0].low}`});
+    let currentWeatherContainer = $("<div>", { class: "currentWeatherContainer" });
+    let currentWeatherHeader = $("<p>", { class: "currentWeatherHeader", text: `Currently ${this.currentTemp}°` });
+    let currentWeatherIcon = $("<div>", { class: "currentWeatherIcon" }).css("background-image", `url("images/${this.currentIcon}.png)`);
+    let todayHighLow = $("<p>", { class: "todayHighLow", text: `${this.forcast[0].high} ${this.forcast[0].low}` });
     currentWeatherContainer.append(currentWeatherHeader, currentWeatherIcon, todayHighLow);
     this.domElements.current = currentWeatherContainer;
     this.domElements.container.append(currentWeatherContainer);
     for (var forcastIndex = 1; forcastIndex < this.forcast.length; forcastIndex++) {
       let forcastWeatherContainer = $("<div>", { class: `forcast${forcastIndex}WeatherContainer` });
       let forcastWeatherHeader = $("<p>", { class: `forcast${forcastIndex}WeatherHeader`, text: this.days[this.forcast[forcastIndex].date.getDay()] });
-      let forcastWeatherIcon = $("<div>", { class: `forcast${forcastIndex}WeatherIcon`}).css("background-image", `url("images/${this.forcast[forcastIndex].icon}.png")`);
-      let forcastHighLow = $("<p>", {class: `forcast${forcastIndex}HighLow`, text: `${this.forcast[forcastIndex].low} ${this.forcast[forcastIndex].high}`});
+      let forcastWeatherIcon = $("<div>", { class: `forcast${forcastIndex}WeatherIcon` }).css("background-image", `url("images/${this.forcast[forcastIndex].icon}.png")`);
+      let forcastHighLow = $("<p>", { class: `forcast${forcastIndex}HighLow`, text: `${this.forcast[forcastIndex].low} ${this.forcast[forcastIndex].high}` });
       forcastWeatherContainer.append(forcastWeatherHeader, forcastWeatherIcon, forcastHighLow);
       this.domElements["forcast" + forcastIndex] = forcastWeatherContainer;
       this.domElements.container.append(forcastWeatherContainer);
