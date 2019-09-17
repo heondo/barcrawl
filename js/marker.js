@@ -1,6 +1,7 @@
 class Marker {
   constructor(map, data) {
-    this.clickHandler = this.clickHandler.bind(this)
+    this.eventClickHandler = this.eventClickHandler.bind(this)
+    this.bizClickHandler = this.bizClickHandler.bind(this)
     this.data = data;
     this.map = map;
     this.type = null;
@@ -31,7 +32,7 @@ class Marker {
       icon: icon
     })
       .addListener('click',
-        this.clickHandler)
+        this.eventClickHandler)
   }
 
   renderBiz = (biz) => {
@@ -56,11 +57,20 @@ class Marker {
       icon: icon
     })
       .addListener('click',
-        this.clickHandler)
+        this.bizClickHandler)
   }
 
-  clickHandler = () => {
+  eventClickHandler() {
     // should open up information about
-    console.log(this.name);
+    // console.log(this.name);
+    let infoWindow = new google.maps.InfoWindow({
+      content: `<div> ${this.name}</div>`
+    })
+    // console.log(infoWindow, this.marker)
+    infoWindow.open(this.map)
+  }
+
+  bizClickHandler = () => {
+    console.log(this.name)
   }
 }

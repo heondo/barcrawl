@@ -33,7 +33,7 @@ class Eventbrite {
           'location.within': '10mi',
           'expand': 'venue'
         },
-        success: function (response) {
+        success: (response) => {
           this.data = response;
           this.render();
           resolve(response)
