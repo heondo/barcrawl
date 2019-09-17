@@ -9,10 +9,10 @@ class Eventbrite {
   constructor(lat, lng) {
     this.key = 'YT37TJX32QTNUIJPS4NG';
     this.eventStorage = [];
-    this.data = eventBriteData["events"];
+    this.data = null;
     this.lat = lat;
     this.lng = lng;
-    this.domContainer = $(".eventContainer");
+    this.domContainer = $(".eventsContainer");
     this.render = this.render.bind(this);
   }
 
@@ -33,12 +33,12 @@ class Eventbrite {
           'location.within': '10mi',
           'expand': 'venue'
         },
-        success: function (response) {
+        success: (response) => {
           this.data = response;
           this.render();
-          resolve(response)
+          resolve(response);
         },
-        error: function(response) {
+        error: (response) => {
           reject(response);
         }
       })
@@ -46,18 +46,18 @@ class Eventbrite {
   }
 
   render(){
-    for (let eventIndex = 0; eventIndex < this.data.length; eventIndex++){
-      let thisEvent = this.data[eventIndex];
+    for (let eventIndex = 0; eventIndex < this.data.events.length; eventIndex++){
+      let thisEvent = this.data.events[eventIndex];
       let newEvent = {};
-      let startDateTime =  parseDateTime(thisEvent.start.local);
-      let endDateTime = parseDateTime(thisEvent.end.local);
+      let startDateTime =  this.parseDateTime(thisEvent.start.local);
+      let endDateTime = this.parseDateTime(thisEvent.end.local);
       newEvent.name = thisEvent.name.text;
       newEvent.description = thisEvent.description;
       newEvent.times = { startDate: startDateTime[0], startTime: startDateTime[1],
                       endDate: endDateTime[0], endTime: endDateTime[1] };
       newEvent.address = thisEvent.venue.localized_multi_line_address_display;
       this.eventStorage.push(newEvent);
-      let eventDom = $("<p>", {class: "event" + eventIndex, text: thisEvent.name});
+      let eventDom = $("<p>", {class: "event" + eventIndex, text: newEvent.name});
       this.domContainer.append(eventDom);
     }
   }

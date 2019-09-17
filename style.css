@@ -1,3 +1,7 @@
+body{
+  height: 100vh;
+}
+
 .mainHeader {
   width: 100%;
   border: 2px solid red;
@@ -23,13 +27,16 @@
 .mainContainer {
   display: flex;
   width: 100%;
+  height: 70%;
 }
 .mapContainer {
   width: 60%;
 }
 .eventsContainer, .businessContainer {
   width: 20%;
+  height: 100%;
   text-align: center;
+  overflow: scroll;
 }
 .businessContainer {
   height: 500px;
