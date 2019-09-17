@@ -28,12 +28,13 @@ class Yelp {
           'longitude': this.userLongitude,
           'radius': 16093
         },
-        success: function(data) {
+        success: (data) => {
           this.businessesData = data;
           console.log('yelp', data);
+          this.displayToBusinessList();
           resolve(data);
         },
-        error: function(data) {
+        error: (data) => {
           console.log('There was an error recieving data on the yelp object.');
           reject(data);
         }
@@ -47,9 +48,6 @@ class Yelp {
     this.displayToBusinessList();
   }
   displayToBusinessList() {
-    // this.businessesToDisplay = this.businessesData.map(function(business) {
-    //   return business.name
-    // })
     for(let bizIndex = 0; bizIndex < this.businessesData.businesses.length; bizIndex++) {
       var businessName = this.businessesData.businesses[bizIndex].name;
       var businessRating = this.businessesData.businesses[bizIndex].rating
