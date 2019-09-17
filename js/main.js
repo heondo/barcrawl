@@ -12,4 +12,18 @@ function retrieveUserPositon(data) {
   userPositionLong = data.coords.longitude;
   console.log(`The latitude is ${userPositionLat} and the longitude is ${userPositionLong}`);
   const yelpObject = new Yelp(userPositionLat, userPositionLong);
+  initFirstMap(userPositionLat, userPositionLong, undefined);
+}
+
+function initFirstMap(lat, lng) {
+  const map = new google.maps.Map(document.getElementById('mapDisplay'), {
+    zoom: 14,
+    center: {
+      lat: lat,
+      lng: lng
+    },
+    mapTypeId: 'terrain'
+  });
+
+
 }
