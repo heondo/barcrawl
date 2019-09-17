@@ -15,31 +15,36 @@ class Marker {
       lat: parseFloat(event.venue.address.latitude),
       lng: parseFloat(event.venue.address.longitude)
     }
-    console.log(position)
+    // console.log(position)
     this.type = "events"
     this.name = event.name.text;
     this.marker = new google.maps.Marker({
       position: position,
       map: this.map,
       title: event.name.text,
-      styles: [
-
-      ]
+      icon: ""
     })
       .addListener('click',
         this.clickHandler)
   }
 
-  renderBiz = () => {
-    this.type = "business"
+  renderBiz = (biz) => {
+    const position = {
+      lat: parseFloat(biz.coordinates.latitude),
+      lng: parseFloat(biz.coordinates.longitude)
+    }
+
+    this.type = "business";
+    this.name = biz.name;
     this.marker = new google.maps.Marker({
-      position: this.position,
+      position: position,
       map: this.map,
-      name: this.data.name
+      title: biz.name
     })
       .addListener('click',
         this.clickHandler)
   }
+
   clickHandler = () => {
     // should open up information about
     console.log(this.data.name);
