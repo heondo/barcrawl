@@ -4,10 +4,11 @@ class Yelp {
     this.userLatitude = userLatitude;
     this.userLongitude = userLongitude;
     this.businessesData = null;
-  }
-
-  render() {
-    this.retrieveData();
+    this.businessesToDisplay = null;
+    this.errorProcessingData = this.errorProcessingData.bind(this);
+    this.domElements = {
+      businessContainer: $('.businessContainer')
+    }
   }
 //call the php file
 //php file makes the call
@@ -38,6 +39,30 @@ class Yelp {
         }
       })
     })
+  }
+  processData(data) {
+    this.businessesData = data;
+    console.log(data);
+    console.log('Yelp Data has been recieved');
+    this.displayToBusinessList();
+  }
+  displayToBusinessList() {
+    // this.businessesToDisplay = this.businessesData.map(function(business) {
+    //   return business.name
+    // })
+    for(let bizIndex = 0; bizIndex < this.businessesData.businesses.length; bizIndex++) {
+      var businessName = this.businessesData.businesses[bizIndex].name;
+      var businessRating = this.businessesData.businesses[bizIndex].rating
+      var businessNameContainer = $('<div>').addClass('businessName').text(businessName);
+      var businessRatingContainer = $('<div>').addClass('rating').text(businessRating);
+      var businessContainer = $('<div>').addClass('business');
+      businessContainer.append(businessNameContainer, businessRatingContainer);
+      this.domElements.businessContainer.append(businessContainer);
+    }
+  }
+
+  errorProcessingData() {
+    console.log('There was an error recieving data on the yelp object.');
   }
 
   getData() {

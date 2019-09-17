@@ -31,8 +31,21 @@
   width: 20%;
   text-align: center;
 }
+.businessContainer {
+  height: 500px;
+  overflow: auto;
+}
 .mapDisplay {
   text-align: center;
   height: 500px;
   border: 2px solid blue;
+}
+
+.business {
+  border: 2px solid red;
+  text-align: center;
+}
+.business > * {
+  margin: 0 auto;
+  border: 2px solid pink;
 }
