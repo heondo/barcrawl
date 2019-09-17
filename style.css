@@ -1,0 +1,22 @@
+.mainHeader {
+  width: 100%;
+  border: 2px solid red;
+}
+.mainHeader > * {
+  margin: 0 auto;
+  display: inline-block;
+  width: 32.8%;
+  border: 2px solid red;
+  text-align: center;
+}
+.searchBar {
+  width: 100%;
+  border: 2px solid green;
+  text-align: center;
+}
+.mapDisplay {
+  text-align: center;
+  width: 100%;
+  height: 800px;
+  border: 2px solid blue;
+}
