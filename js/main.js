@@ -13,7 +13,8 @@ function retrieveUserPositon(data) {
   console.log(`The latitude is ${userPositionLat} and the longitude is ${userPositionLong}`);
   const yelpObject = new Yelp(userPositionLat, userPositionLong);
   const map = new googleMap(userPositionLat, userPositionLong);
-  map.render();
+  map.initMap();
+  map.addEvents();
   initializeWeather();
 }
 
