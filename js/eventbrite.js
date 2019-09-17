@@ -9,17 +9,15 @@ class Eventbrite {
   constructor() {
     this.key = 'YT37TJX32QTNUIJPS4NG';
     this.eventStorage = {};
+    this.retrieveData();
   }
 
   retrieveData() {
     let settings = {
-      url: `https://www.eventbriteapi.com/v3/events/search?
-                                        location.longitude=${userPositionLong}
-                                        &location.latitude=${userPositionLat}`,
+      url: 'https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search',
       method: 'GET',
-      type: 'JSON',
       headers: {
-        'Authorization': `Bearer ${this.key}`
+        'Authorization': 'Bearer YT37TJX32QTNUIJPS4NG'
       },
       data: {
         'location.longitude': '-117.7490541',
@@ -30,15 +28,11 @@ class Eventbrite {
       },
       success: function(data) {
         console.log(data);
-        for(let event in data.events) {
-          this.eventStorage[]
-        }
       },
       error: function(data) {
         console.log(data);
       }
     };
-
     $.ajax(settings);
   }
 

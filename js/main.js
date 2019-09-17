@@ -2,6 +2,8 @@ $(document).ready(initializeApp)
 let userPositionLat = null;
 let userPositionLong = null;
 
+const eventbrite = new Eventbrite();
+
 function initializeApp() {
   navigator.geolocation.getCurrentPosition(retrieveUserPositon)
 }
