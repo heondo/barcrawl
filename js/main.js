@@ -4,6 +4,7 @@ let userPositionLong = null;
 navigator.geolocation.getCurrentPosition(retrieveUserPositon);
 $(document).ready(initializeApp);
 
+
 function retrieveUserPositon(data) {
   userPositionLat = data.coords.latitude;
   userPositionLong = data.coords.longitude;
