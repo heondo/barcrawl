@@ -32,6 +32,7 @@ class Yelp {
     })
   }
   processData(data) {
+    console.log(data)
     this.businessesData = data;
     return this.businessesData;
   }

@@ -1,6 +1,7 @@
 let userPositionLat = null;
 let userPositionLong = null;
 
+
 $(document).ready(initApp);
 
 function initApp() {
