@@ -41,9 +41,10 @@ class WeatherData {
   getWeatherData() {
     let ajaxConfigObject = {
       dataType: "json",
-      url: " https://api.darksky.net/forecast/" + darkSkyApi + "/" + this.coord.lat + "," + this.coord.lng,
+      url: "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/" + darkSkyApi + "/" + this.coord.lat + "," + this.coord.lng,
       method: "get",
       data: {
+
         exclude: "minutely"
       }
     }
