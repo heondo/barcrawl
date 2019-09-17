@@ -52,7 +52,7 @@ class googleMap {
   // }
 
   addEvents(events) {
-    events.events.map((event) => {
+    events.map((event) => {
       const eventMarker = new Marker(this.mapObj, event);
       this.markers.events.push(eventMarker);
       eventMarker.renderEvent(event);
