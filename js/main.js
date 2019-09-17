@@ -1,7 +1,6 @@
 let userPositionLat = null;
 let userPositionLong = null;
 
-
 $(document).ready(initApp);
 
 function initApp() {
@@ -23,7 +22,13 @@ function initAJAX() {
   const weather = new WeatherData(userPositionLat, userPositionLong);
 
   map.initMap();
-  map.addEvents(eventBriteData);
   weather.getWeatherData();
-  yelp.render();
+
+  eventbrite.retrieveData().then(data => map.addEvents(data.events))
+                           .catch(data => console.log(data));
+
+  yelp.retrieveData().then(data => map.addBiz(data.businesses))
+                     .catch(data => console.log(data));
+
+
 }

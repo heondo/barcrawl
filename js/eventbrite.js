@@ -30,7 +30,8 @@ class Eventbrite {
           'location.latitude': `${this.lat}`,
           'categories': '103',
           'start_date.range_end': '2019-09-24T23:59:59Z',
-          'location.within': '10mi'
+          'location.within': '10mi',
+          'expand': 'venue'
         },
         success: function (response) {
           this.data = response;
