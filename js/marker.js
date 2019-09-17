@@ -52,7 +52,8 @@ class Marker {
     this.marker = new google.maps.Marker({
       position: position,
       map: this.map,
-      title: biz.name
+      title: biz.name,
+      icon: icon
     })
       .addListener('click',
         this.clickHandler)
