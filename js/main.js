@@ -18,4 +18,18 @@ function retrieveUserPositon(data) {
 function initializeWeather(){
   var weather = new WeatherData(userPositionLat, userPositionLong);
   weather.getWeatherData();
+  initFirstMap(userPositionLat, userPositionLong, undefined);
+}
+
+function initFirstMap(lat, lng) {
+  const map = new google.maps.Map(document.getElementById('mapDisplay'), {
+    zoom: 14,
+    center: {
+      lat: lat,
+      lng: lng
+    },
+    mapTypeId: 'terrain'
+  });
+
+
 }
