@@ -14,7 +14,7 @@ function retrieveUserPositon(data) {
   const yelpObject = new Yelp(userPositionLat, userPositionLong);
   const map = new googleMap(userPositionLat, userPositionLong);
   map.initMap();
-  map.addEvents();
+  map.addEvents(eventBriteData);
   initializeWeather();
 }
 
