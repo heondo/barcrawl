@@ -30,7 +30,6 @@ class googleMap {
   }
 
   addEvents(events) {
-    // console.log(events)
     events.events.map((event) => {
       const eventMarker = new Marker(this.mapObj, event);
       this.markers.events.push(eventMarker);
@@ -39,11 +38,12 @@ class googleMap {
   }
 
 
-  addBiz() {
-    // for (var i of [.1, .2, .3]) {
-    //   var marker = new Marker(this.mapObj, { lat: this.lat + i, lng: this.lng - i }, { name: "name" });
-    //   marker.renderBiz();
-    // }
+  addBiz(businesses) {
+    businesses.map((biz) => {
+      const bizMarker = new Marker(this.mapObj, biz);
+      this.markers.biz.push(bizMarker);
+      bizMarker.renderBiz(biz);
+    })
   }
   // addMarkers(businesses)
 }
