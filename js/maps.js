@@ -1,4 +1,4 @@
-function initMap() {
+function initMap(/*I COULD TAKE IN A LIST OF YELP BREWERY BUSINESSES AND MAP THE TOP FIVE OR SOMETHING*/) {
   const map = new google.maps.Map(document.getElementById('mapDisplay'), {
     zoom: 14,
     center: {
@@ -7,11 +7,27 @@ function initMap() {
     mapTypeId: 'terrain'
   });
 
-  const marker1 =
+  const marker1 = new Marker(map, {
+    lat: 33.637,
+    lng: -117.739
+  }, {name: "whatsup"})
+  marker1.render()
+
+  const marker2 = new Marker(map, {
+    lat: 33.652,
+    lng: -117.721
+  }, {name: "idk"})
+  marker2.render()
+
+  const marker3 = new Marker(map, {
+    lat: 33.637,
+    lng: -117.712
+  }, {name: "something"})
+  marker3.render()
 
 }
 
-class newMarker {
+class Marker {
   constructor(map, position, business){
     this.business = business;
     this.map = map;
@@ -20,11 +36,15 @@ class newMarker {
   }
 
   render() {
+    // var/
     this.marker = new google.maps.Marker({
-      position: this.position,
-      map: this.map,
-      title: "hello"
-    })
+                      position: this.position,
+                      map: this.map,
+                      name: this.business.name
+                    })
+                      .addListener('click', ()=> {
+
+                    })
   }
 }
 
