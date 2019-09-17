@@ -33,6 +33,7 @@ class Yelp {
     })
   }
   processData(data) {
+    console.log(data)
     this.businessesData = data;
     console.log(data);
     console.log('Yelp Data has been recieved');
