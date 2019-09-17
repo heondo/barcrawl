@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   <script src="js/yelp.js"></script>
+  <script src="js/maps.js"></script>
+  <script src="js/taplist.js"></script>
   <script src="js/main.js"></script>
 </head>
 <body>
@@ -14,9 +16,11 @@
     <div class="budgetInfo">$100</div>
   </header>
   <div class="searchBar">Search goes here</div>
-  <div class="mapDisplay">
+  <div id="mapDisplay" class="mapDisplay">
     Map goes here
   </div>
-
-</body>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWq6apxh7IJs8njuJgCEJf5QPenKjrCYc&callback=initMap"></script>
+  </div>
+  </body>
 </html>
