@@ -16,30 +16,26 @@ class WeatherData {
     this.domElements = {
       container: $(".weatherContainer"),
       current: null,
-      forcast1: null,
-      forcast2: null,
-      forcast3: null,
-      forcast4: null,
-      forcast5: null
+      day1: null,
+      day2: null,
+      day3: null,
+      day4: null,
+      day5: null
     }
     this.getWeatherDataSuccess = this.getWeatherDataSuccess.bind(this);
   }
   render() {
-    let currentWeatherContainer = $("<div>", { class: "currentWeatherContainer" });
-    let currentWeatherHeader = $("<p>", { class: "currentWeatherHeader", text: `Currently ${this.currentTemp}°` });
-    let currentWeatherIcon = $("<div>", { class: "currentWeatherIcon" }).css("background-image", `url("images/${this.currentIcon}.png)`);
-    let todayHighLow = $("<p>", { class: "todayHighLow", text: `${this.forcast[0].high} ${this.forcast[0].low}` });
-    currentWeatherContainer.append(currentWeatherHeader, currentWeatherIcon, todayHighLow);
-    this.domElements.current = currentWeatherContainer;
-    this.domElements.container.append(currentWeatherContainer);
+    let currentWeather = `Currently: ${this.currentTemp} °F ${this.currentCondition} Today's high: ${this.forcast[0].high} Today's low: ${this.forcast[0].low}`;
+    let weatherP = $("<p>").text(currentWeather);
+    let weatherStrings = [];
+    weatherStrings.push(currentWeather);
+    this.domElements.current = weatherP;
+    this.domElements.container.append(weatherP);
     for (var forcastIndex = 1; forcastIndex < this.forcast.length; forcastIndex++) {
-      let forcastWeatherContainer = $("<div>", { class: `forcast${forcastIndex}WeatherContainer` });
-      let forcastWeatherHeader = $("<p>", { class: `forcast${forcastIndex}WeatherHeader`, text: this.days[this.forcast[forcastIndex].date.getDay()] });
-      let forcastWeatherIcon = $("<div>", { class: `forcast${forcastIndex}WeatherIcon` }).css("background-image", `url("images/${this.forcast[forcastIndex].icon}.png")`);
-      let forcastHighLow = $("<p>", { class: `forcast${forcastIndex}HighLow`, text: `${this.forcast[forcastIndex].low} ${this.forcast[forcastIndex].high}` });
-      forcastWeatherContainer.append(forcastWeatherHeader, forcastWeatherIcon, forcastHighLow);
-      this.domElements["forcast" + forcastIndex] = forcastWeatherContainer;
-      this.domElements.container.append(forcastWeatherContainer);
+      let forcastString = `${this.days[this.forcast[forcastIndex].date.getDay()]} ${(this.forcast[forcastIndex].date.getMonth() + 1)}-${(this.forcast[forcastIndex].date.getDate())} ${this.forcast[forcastIndex].summary} high: ${this.forcast[forcastIndex].high}° low: ${this.forcast[forcastIndex].low}`;
+      weatherStrings.push(forcastString);
+      let forcastP = $("<p>").text(forcastString);
+      this.domElements.container.append(forcastP);
     }
   }
   getWeatherData() {
