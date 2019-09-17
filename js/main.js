@@ -2,6 +2,7 @@ $(document).ready(initializeApp)
 let userPositionLat = null;
 let userPositionLong = null;
 
+
 const eventbrite = new Eventbrite();
 
 function initializeApp() {
@@ -21,7 +22,7 @@ function retrieveUserPositon(data) {
 }
 
 function initializeWeather(){
-  const weather = new WeatherData(userPositionLat, userPositionLong);
+  var weather = new WeatherData(userPositionLat, userPositionLong);
   weather.getWeatherData();
   // initFirstMap(userPositionLat, userPositionLong, undefined);
 }
