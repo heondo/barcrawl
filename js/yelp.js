@@ -5,17 +5,16 @@ class Yelp {
     this.userLongitude = userLongitude;
     this.processData = this.processData.bind(this);
     this.businessesData = null;
+    this.businessesToDisplay = null;
     this.errorProcessingData = this.errorProcessingData.bind(this);
-    this.render();
-  }
-
-  render() {
-    this.retrieveData(this.userLatitude, this.userLongitude);
+    this.domElements = {
+      businessContainer: $('.businessContainer')
+    }
   }
 //call the php file
 //php file makes the call
 
-  retrieveData(latitude, longitude) {
+  retrieveData() {
     $.ajax({
       'url': `php/yelp.php`,
       'dataType' : 'JSON',
@@ -24,8 +23,8 @@ class Yelp {
       },
       data: {
         'term' : 'bars',
-        'latitude': latitude,
-        'longitude': longitude,
+        'latitude': this.userLatitude,
+        'longitude': this.userLongitude,
         'radius': 16093
       },
       success: this.processData,
@@ -33,10 +32,24 @@ class Yelp {
     })
   }
   processData(data) {
-    console.log(data)
     this.businessesData = data;
     console.log(data);
     console.log('Yelp Data has been recieved');
+    this.displayToBusinessList();
+  }
+  displayToBusinessList() {
+    // this.businessesToDisplay = this.businessesData.map(function(business) {
+    //   return business.name
+    // })
+    for(let bizIndex = 0; bizIndex < this.businessesData.businesses.length; bizIndex++) {
+      var businessName = this.businessesData.businesses[bizIndex].name;
+      var businessRating = this.businessesData.businesses[bizIndex].rating
+      var businessNameContainer = $('<div>').addClass('businessName').text(businessName);
+      var businessRatingContainer = $('<div>').addClass('rating').text(businessRating);
+      var businessContainer = $('<div>').addClass('business');
+      businessContainer.append(businessNameContainer, businessRatingContainer);
+      this.domElements.businessContainer.append(businessContainer);
+    }
   }
 
   errorProcessingData() {
