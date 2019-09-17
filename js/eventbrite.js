@@ -8,10 +8,12 @@ class Eventbrite {
    */
   constructor(lat, lng) {
     this.key = 'YT37TJX32QTNUIJPS4NG';
-    this.eventStorage = {};
-    this.data = null;
+    this.eventStorage = [];
+    this.data = eventBriteData["events"];
     this.lat = lat;
     this.lng = lng;
+    this.domContainer = $(".eventContainer");
+    this.render = this.render.bind(this);
   }
 
   retrieveData() {
@@ -32,6 +34,7 @@ class Eventbrite {
         },
         success: function (response) {
           this.data = response;
+          this.render();
           resolve(response)
         },
         error: function(response) {
@@ -41,8 +44,35 @@ class Eventbrite {
     })
   }
 
+  render(){
+    for (let eventIndex = 0; eventIndex < this.data.length; eventIndex++){
+      let thisEvent = this.data[eventIndex];
+      let newEvent = {};
+      let startDateTime =  parseDateTime(thisEvent.start.local);
+      let endDateTime = parseDateTime(thisEvent.end.local);
+      newEvent.name = thisEvent.name.text;
+      newEvent.description = thisEvent.description;
+      newEvent.times = { startDate: startDateTime[0], startTime: startDateTime[1],
+                      endDate: endDateTime[0], endTime: endDateTime[1] };
+      newEvent.address = thisEvent.venue.localized_multi_line_address_display;
+      this.eventStorage.push(newEvent);
+      let eventDom = $("<p>", {class: "event" + eventIndex, text: thisEvent.name});
+      this.domContainer.append(eventDom);
+    }
+  }
 
-
+  parseDateTime(str){
+    let dateTime = str.split("T");
+    dateTime[1] = dateTime[1].substr(0, 5);
+    var hours  = parseInt(dateTime[1]);
+    if (hours > 12){
+      hours = hours - 12;
+      dateTime[1] = hours + dateTime[1].substr(2) + "pm";
+    } else {
+      dateTime[1] += "am";
+    }
+    return dateTime;
+  }
 
 
 }
