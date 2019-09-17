@@ -7,6 +7,14 @@ $(document).ready(initializeApp);
 function retrieveUserPositon(data) {
   userPositionLat = data.coords.latitude;
   userPositionLong = data.coords.longitude;
+  console.log(`The latitude is ${userPositionLat} and the longitude is ${userPositionLong}`);
+  const yelpObject = new Yelp(userPositionLat, userPositionLong);
+  const map = new googleMap(userPositionLat, userPositionLong);
+  map.initMap();
+  map.addEvents(eventBriteData);
+  // console.log(yelpObject.businessesData)
+  // map.addBiz(yelpObject.businessesData)
+  initializeWeather();
 }
 
 function initializeApp() {
