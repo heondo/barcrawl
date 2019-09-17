@@ -4,6 +4,7 @@ class Yelp {
     this.userLatitude = userLatitude;
     this.userLongitude = userLongitude;
     this.processData = this.processData.bind(this);
+    this.businessesData = null;
     this.errorProcessingData = this.errorProcessingData.bind(this);
     this.render();
   }
@@ -11,22 +12,31 @@ class Yelp {
   render() {
     this.retrieveData(this.userLatitude, this.userLongitude);
   }
+//call the php file
+//php file makes the call
 
   retrieveData(latitude, longitude) {
     $.ajax({
-      'url': `https://api.yelp.com/v3/businesses/search?latitude=${latitude}&longitude=${longitude}`,
+      'url': `php/yelp.php`,
+      'dataType' : 'JSON',
       'headers': {
-        "Authorization" : this.apiKey
+        "Authorization": 'Bearer a_BrDbXlVK8u3TbVbpFRC9EP6Ye_73iUJQvTRDbJBrbD_e0t9x4OqWni0XZK8hE_VLr2GLWHBfgrEDdY6jZO16i1Gq5tMTBIBczxbqU1e2P3-cOOmkTUVgNE0TiAXXYx',
+      },
+      data: {
+        'term' : 'bars',
+        'latitude': latitude,
+        'longitude': longitude
       },
       success: this.processData,
       error: this.errorProcessingData
     })
   }
   processData(data) {
-    console.log(data);
+    this.businessesData = data;
+    return this.businessesData;
   }
 
   errorProcessingData() {
-    alert('There was an error processing your data.');
+    console.log('There was an error recieving data on this yelp object.');
   }
 }
