@@ -1,7 +1,8 @@
 class Marker {
   constructor(map, data, domElement, updateCenterCallback) {
     this.eventClickHandler = this.eventClickHandler.bind(this)
-    this.bizClickHandler = this.bizClickHandler.bind(this)
+    this.bizClickHandler = this.bizClickHandler.bind(this);
+    // this.removeMarker = this.removeMarker.bind(this)
     this.updateCenterCallback = updateCenterCallback;
     this.domElement = $(domElement);
     this.data = data;
@@ -10,6 +11,10 @@ class Marker {
     this.marker = null;
     this.name = null;
   }
+
+  // removeMarker = () => {
+  //   this.marker.setMap(null);
+  // }
 
   renderEvent = (event) => {
     // var/
@@ -29,14 +34,17 @@ class Marker {
     // console.log(position)
     this.type = "events"
     this.name = event.name.text;
+
+    // console.log(someMarker.setMap)
     this.marker = new google.maps.Marker({
       position: position,
       map: this.map,
       title: event.name.text,
       icon: icon
     })
-      .addListener('click',
-        this.eventClickHandler)
+    this.marker.addListener('click', this.eventClickHandler);
+    console.log(this.marker.setMap)
+
   }
 
   renderBiz = (biz) => {
@@ -60,8 +68,7 @@ class Marker {
       title: biz.name,
       icon: icon
     })
-      .addListener('click',
-        this.bizClickHandler)
+    this.marker.addListener('click', this.eventClickHandler);
   }
 
   eventClickHandler = () => {
