@@ -24,6 +24,7 @@ class Marker {
       title: this.data.name,
       // icon: icon
     })
+    this.marker = userMark;
   }
 
 
