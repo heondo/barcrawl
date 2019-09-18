@@ -23,8 +23,9 @@ class Eventbrite {
       let dateInput = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate() + 7}T${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
       console.log(dateInput);
       $.ajax({
-        url: 'https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search',
+        url: 'php/eventbrite.php',
         method: 'GET',
+        dataType: 'JSON',
         headers: {
           'Authorization': 'Bearer YT37TJX32QTNUIJPS4NG'
         },
@@ -49,6 +50,7 @@ class Eventbrite {
   }
 
   postProcessData(response) {
+    console.log(typeof response);
     if(response.events.length < 20) {
       return response;
     }
