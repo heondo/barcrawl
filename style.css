@@ -57,12 +57,24 @@ body{
   overflow-y: scroll;
   overflow-x: hidden;
   box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .mapDisplay {
   text-align: center;
   height: 500px;
 }
+
+
+/* .business:hover, .events:hover {
+  height: 80%;
+} */
 
 .rating {
   background-size: contain;
@@ -83,6 +95,11 @@ body{
   border: 2px solid #FF8A5B;
 }
 
+.business-info .address {
+  font-size: 75%;
+  color: blue;
+}
+
 .event {
   background-color: #EA526F;
 }
@@ -91,13 +108,31 @@ body{
   background-color: #25CED1;
 }
 
-/* .business:hover {
+.business:hover {
+  height: 50px;
+  background-color: #62929E;
+  color: white;
+}
+
+.collapsed{
+  flex: 0;
+  margin: auto;
+}
+
+.expanded {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  justify-content: center;
+  flex: 1;
+}
+
+.business:hover:not(.expanded) {
   transform: scale(1.08);
   z-index: 1;
   cursor: pointer;
   background-color: #FFAE7C;
 }
-.event:hover {
+.event:hover:not(.expanded) {
   transform: scale(1.08);
   z-index: 1;
   cursor: pointer;

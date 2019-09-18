@@ -1,5 +1,5 @@
 class googleMap {
-  constructor(lat, lng) {
+  constructor(lat, lng, expandClickHandler) {
     // this.clearOverLays = this.clearOverLays.bind(this);
     // this.updateLocation = this.updateLocation.bind(this),
     // this.events = events,
@@ -15,7 +15,9 @@ class googleMap {
       events: [],
       biz: [],
       user: null
-    }
+    },
+    this.route = [],
+    this.expandClickHandler = expandClickHandler;
   }
 
   initMap() {
@@ -32,7 +34,7 @@ class googleMap {
     this.mapObj = map;
     this.initAutocomplete();
 
-    const userMarker = new Marker(this.mapObj, {name: "You"}, undefined, this.updateLocation, this.closeWindows);
+    const userMarker = new Marker(this.mapObj, {name: "You"}, undefined, this.updateLocation, this.closeWindows, this.expandClickHandler);
     userMarker.renderUser({
       lat: this.lat,
       lng: this.lng
@@ -70,7 +72,6 @@ class googleMap {
 
   closeWindows = () => {
     for (let eventMarker of this.markers.events) {
-      console.log(eventMarker)
       eventMarker.infoWindow.close(this.map);
       // marker.marker.setMap(null);
     }
@@ -86,7 +87,7 @@ class googleMap {
     events.map((event, index) => {// add .
       const eventMarker = new Marker(this.mapObj, event, `.event${index}`, this.updateLocation, this.closeWindows);
       this.markers.events.push(eventMarker);
-      eventMarker.renderEvent(event);
+      eventMarker.renderEvent(event, index);
     });
   }
 
@@ -95,7 +96,7 @@ class googleMap {
     businesses.map((biz, index) => {
       const bizMarker = new Marker(this.mapObj, biz, `.business${index}`, this.updateLocation, this.closeWindows);
       this.markers.biz.push(bizMarker);
-      bizMarker.renderBiz(biz);
+      bizMarker.renderBiz(biz, index);
     })
   }
   // addMarkers(businesses)
@@ -112,6 +113,10 @@ class googleMap {
     // more details for that place.
     searchBox.addListener('places_changed', () => {
       var places = searchBox.getPlaces();
+      var newUserLat = places[0].geometry.location.lat();
+      var newUserLong = places[0].geometry.location.lng();
+      console.log(`Changed lat is ${newUserLat}, changed long is ${newUserLong}`);
+      this.updateDom(newUserLat, newUserLong);
 
       if (places.length == 0) {
         return;
@@ -144,6 +149,7 @@ class googleMap {
           title: place.name,
           position: place.geometry.location
         }));
+        console.log(markers);
 
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
@@ -154,6 +160,17 @@ class googleMap {
       });
       this.mapObj.fitBounds(bounds);
     });
+  }
+    updateDom(newLat, newLong) {
+      barCrawl.userPositionLat = newLat;
+      barCrawl.userPositionLong = newLong;
+      barCrawl.updateLocation();
+    }
+
+  addRouteDestination(type, index){
+    console.log("type", type);
+    this.route.push(this.markers[type][index].position);
+    console.log (this.route);
   }
 
 }
