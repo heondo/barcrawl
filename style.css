@@ -343,3 +343,6 @@ body{
   top: -100%;
   transition-duration: 1s;
 }
+.destinationsAddedContainer, .destinationsAdded{
+  display: flex;
+}
