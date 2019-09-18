@@ -85,6 +85,7 @@ body{
 
 .business, .event {
   background-size: 30px;
+  /* background-position: center; */
   background-position: left;
   background-repeat: no-repeat;
   transition-duration: 500ms;
@@ -97,8 +98,8 @@ body{
   width: 98%
 }
 
-.business-info .address {
-  font-size: 75%;
+.address {
+  font-size: .85em;
   color: blue;
 }
 
@@ -111,14 +112,15 @@ body{
 }
 
 .business:hover {
-  height: 50px;
+  /* height: 50px; */
   background-color: #62929E;
-  color: white;
+  /* color: white; */
 }
 
 .collapsed{
   flex: 0;
-  margin: 1px;
+  margin: auto;
+  border: 0;
 }
 
 .expanded {
@@ -126,6 +128,7 @@ body{
   margin-bottom: 5px;
   justify-content: center;
   flex: 1;
+  background-position: center;
 }
 
 .business:hover:not(.expanded) {
