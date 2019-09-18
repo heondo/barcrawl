@@ -37,7 +37,7 @@ class Eventbrite {
           'expand': 'venue'
         },
         success: (response) => {
-          this.data = response;
+          this.data = this.postProcessData(response);
           this.render();
           resolve(response);
         },
@@ -46,6 +46,14 @@ class Eventbrite {
         }
       })
     })
+  }
+
+  postProcessData(response) {
+    if(response.events.length < 20) {
+      return response;
+    }
+    response.events.splice(20);
+    return response;
   }
 
   render(){
