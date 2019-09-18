@@ -21,8 +21,7 @@
 body{
   height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
-  background: -webkit-linear-gradient(top, rgba(252,234,222,1) 1%,rgba(255,255,255,1) 76%,rgba(255,255,255,1) 76%); /* Chrome10-25,Safari5.1-6 */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceade', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+  background-color: rgb(182, 182, 182);
   padding: 0;
   margin: 0;
   /* font-family:  */
@@ -76,7 +75,7 @@ body{
   width: 20%;
   text-align: center;
   height: 480px;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
   box-sizing: border-box;
   display: -webkit-box;
@@ -85,7 +84,16 @@ body{
   display: -ms-flexbox;
   display: flex;
   flex-direction: column;
+  z-index: 2;
   /* justify-content: space-evenly; */
+}
+
+.eventContainer {
+  margin-right: 1%;
+}
+
+.businessContainer {
+  margin-left: 0.4%;
 }
 
 .mapDisplay {
@@ -106,18 +114,18 @@ body{
 }
 
 .business, .event {
+  font-family: manrope-reg;
   background-size: 30px;
   /* background-position: center; */
   background-position: left;
   background-repeat: no-repeat;
   transition-duration: 500ms;
   display: inline-block;
+  border-radius: 2px;
   /* flex: 1; */
   max-height: 25px;
-  /* margin: auto; */
-  border-radius: 15px;
-  color: #FFFFFF;
-  border: 2px solid #FF8A5B;
+  margin-bottom: 1%;
+  color: rgb(53, 53, 53);
   overflow: hidden;
   width: 98%;
   align-items: center;
@@ -131,24 +139,20 @@ body{
 }
 
 .event{
-  background-color: #EA526F;
+  background-color: #CDFFF9;
 }
 
 .event-name {
-  margin-top : 3px;
-  margin-bottom: 3px;
-  letter-spacing: -1px;
+  text-align: center;
 }
 
 .business{
-  background-color: #25CED1;
+  background-color: #C5D9E2;
   /* color: black */
 }
 
 .businessName {
-  margin-top : 3px;
-  margin-bottom: 2px;
-  letter-spacing: -1px;
+  margin-bottom : 10px;
 }
 
 .business:hover {
@@ -176,13 +180,13 @@ body{
   transform: scale(1.08);
   z-index: 1;
   cursor: pointer;
-  background-color: #FFAE7C;
+  background-color: rgb(255, 192, 153);
 }
 .event:hover:not(.expanded) {
   transform: scale(1.08);
   z-index: 1;
   cursor: pointer;
-  background-color: #62929E;
+  background-color: rgb(255, 192, 153);
 }
 
 /* WEATHER STYLING */
@@ -212,6 +216,7 @@ body{
   background-size: stretch;
   background-repeat: no-repeat;
   background-position: center;
+  vertical-align: text-bottom;
 }
 
 .WeatherHeader {
@@ -315,7 +320,7 @@ body{
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
 }
 
 .loading_screen_button {
