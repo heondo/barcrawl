@@ -19,6 +19,9 @@ class Eventbrite {
   retrieveData() {
     return new Promise((resolve, reject) =>
     {
+      let today = new Date();
+      let dateInput = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate() + 7}T${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+      console.log(dateInput);
       $.ajax({
         url: 'https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search',
         method: 'GET',
@@ -29,7 +32,7 @@ class Eventbrite {
           'location.longitude': `${this.lng}`,
           'location.latitude': `${this.lat}`,
           'categories': '103',
-          'start_date.range_end': '2019-09-24T23:59:59Z',
+          'start_date.range_end': dateInput,
           'location.within': '10mi',
           'expand': 'venue'
         },

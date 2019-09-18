@@ -1,6 +1,7 @@
 class App {
   constructor() {
     this.apiList = {};
+    this.date = new Date();
     this.userPositionLat = null;
     this.userPositionLong = null;
     this.retrieveUserPositon = this.retrieveUserPositon.bind(this);
@@ -31,6 +32,12 @@ class App {
 
     this.apiList.yelp.retrieveData().then(data => this.apiList.map.addBiz(data.businesses))
                                     .catch(data => console.log(data));
+  }
+
+  getCurrentDate() {
+    this.date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date + ' ' + time;
   }
 
 }
