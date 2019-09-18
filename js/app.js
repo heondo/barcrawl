@@ -114,7 +114,7 @@ class App {
       type = "biz";
       clickId = clickId.substr(8);
     } else {
-      type = "event";
+      type = "events";
       clickId = clickId.substr(5);
     }
     console.log(clickId);

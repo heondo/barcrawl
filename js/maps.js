@@ -16,7 +16,7 @@ class googleMap {
       biz: [],
       user: null
     },
-    this.route = [],
+    this.waypts = [],
     this.expandClickHandler = expandClickHandler;
   }
 
@@ -157,16 +157,46 @@ class googleMap {
       this.mapObj.fitBounds(bounds);
     });
   }
-    updateDom(newLat, newLong) {
-      barCrawl.userPositionLat = newLat;
-      barCrawl.userPositionLong = newLong;
-      barCrawl.updateLocation();
-    }
-
+  updateDom(newLat, newLong) {
+    barCrawl.userPositionLat = newLat;
+    barCrawl.userPositionLong = newLong;
+    barCrawl.updateLocation();
+  }
+  calculateAndDisplayRoute() {
+    var directionsService = new google.maps.DirectionsService;
+    var directionsRenderer = new google.maps.DirectionsRenderer;
+    directionsRenderer.setMap(this.mapObj);
+    var waypts = this.waypts;
+    directionsService.route({
+      origin: {lat: this.lat, lng: this.lng},
+      destination: waypts.pop().location,
+      waypoints: waypts,
+      optimizeWaypoints: true,
+      travelMode: 'DRIVING'
+    }, function (response, status) {
+      if (status === 'OK') {
+        directionsRenderer.setDirections(response);
+        var route = response.routes[0];
+        var summaryPanel = document.getElementById('directions-panel');
+        summaryPanel.innerHTML = '';
+        // For each route, display summary information.
+        for (var i = 0; i < route.legs.length; i++) {
+          var routeSegment = i + 1;
+          summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+            '</b><br>';
+          summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+          summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+          summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+        }
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
   addRouteDestination(type, index){
     console.log("type", type);
-    this.route.push(this.markers[type][index].position);
-    console.log (this.route);
+    this.waypts.push({location: this.markers[type][index].position, stopover: true});
+    console.log (this.waypts);
   }
 
 }
