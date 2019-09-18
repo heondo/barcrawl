@@ -57,7 +57,7 @@ class Eventbrite {
                       endDate: endDateTime[0], endTime: endDateTime[1] };
       newEvent.address = thisEvent.venue.localized_multi_line_address_display;
       this.eventStorage.push(newEvent);
-      let eventDom = $("<p>", {class: "event" + eventIndex, text: newEvent.name});
+      let eventDom = $("<div>", {class: "event" + eventIndex, text: newEvent.name});
       this.domContainer.append(eventDom);
     }
   }
