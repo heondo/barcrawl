@@ -1,12 +1,15 @@
 body{
   height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #A4D8BF;
+  background: -webkit-linear-gradient(top, rgba(252,234,222,1) 1%,rgba(255,255,255,1) 76%,rgba(255,255,255,1) 76%); /* Chrome10-25,Safari5.1-6 */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceade', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
 }
 
 .mainHeader {
   width: 100%;
 }
+
 .headerName {
   height: 100px;
   background-image: url('assets/images/bar-crawler-logo.png');
@@ -14,11 +17,7 @@ body{
   background-repeat: no-repeat;
   background-position: center;
 }
-.searchBar {
-  width: 100%;
-  border: 2px solid green;
-  text-align: center;
-}
+
 .mainContainer {
   display: flex;
   width: 100%;
@@ -26,14 +25,37 @@ body{
   justify-content: center;
   margin-top: 8px;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .mapContainer {
   width: 55%;
 }
+
 .eventsContainer, .businessContainer {
   width: 20%;
   text-align: center;
   height: 500px;
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -49,6 +71,7 @@ body{
   height: 500px;
 }
 
+
 /* .business:hover, .events:hover {
   height: 80%;
 } */
@@ -59,39 +82,33 @@ body{
   background-repeat: no-repeat;
   height: 25px;
 }
-.business {
-  overflow: hidden;
-  flex: 1;
-  border: 2px solid #FFAE7C;
-  margin: auto;
-  margin-top: 1%;
-  margin-bottom: 1%;
-  border-radius: 15px;
-  height: 50px;
-  width:100%;
-  background-size: contain;
-  background-position: right;
+
+.business, .event {
+  background-size: 30px;
+  background-position: left;
   background-repeat: no-repeat;
   transition-duration: 500ms;
-  background-color: #FFAE7C;
-  color: white;
+  height: 47px;
+  margin: 10px auto;
+  border-radius: 15px;
+  color: #FFFFFF;
+  border: 2px solid #FF8A5B;
 }
 
 .business-info .address {
   font-size: 75%;
   color: blue;
 }
+
 .event {
-  overflow: hidden;
-  flex: 1;
-  border: 2px solid #62929E;
-  margin: auto;
-  border-radius: 15px;
-  width: 100%;
-  background-size: 30px;
-  background-position: left;
-  background-repeat: no-repeat;
-  transition-duration: 500ms;
+  background-color: #EA526F;
+}
+
+.business {
+  background-color: #25CED1;
+}
+
+.business:hover {
   height: 50px;
   background-color: #62929E;
   color: white;
@@ -120,7 +137,7 @@ body{
   z-index: 1;
   cursor: pointer;
   background-color: #62929E;
-}
+} */
 
 /* WEATHER STYLING */
 .weatherContainer{
@@ -136,12 +153,16 @@ body{
   width: 80px;
 }
 .weatherContainer > * {
+  display: flex;
   height: 130px;
-  border: 2px solid #77A6B6;
+  width: 180px;
+  border: 2px solid #FF8A5B;
   border-radius: 20px;
   padding: 8px;
-  background-color: #77A6B6;
   color: white;
+  background-size: stretch;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* Google Autocomplete */
