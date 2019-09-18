@@ -53,7 +53,7 @@ class Yelp {
       // join category titles by commas, display
       let businessCats = ""
       business.categories.map((cat) => {
-        businessCats += cat.title + "\n";
+        businessCats += cat.title + "<br>";
       });
       // businessCats = businessCats.slice(0, businessCats.length-3)
       let businessInfo = $("<div>", {

@@ -24,6 +24,7 @@ class Marker {
       title: this.data.name,
       // icon: icon
     })
+    this.marker = userMark;
   }
 
 
@@ -48,10 +49,10 @@ class Marker {
 
     // console.log(someMarker.setMap)
     const infoWindow = new google.maps.InfoWindow({
-      content: `<div>${this.name}</div>
+      content: `<div class="eventInfoWindow"><div>${this.name}</div>
                 <div>${this.data.venue.address.localized_multi_line_address_display[0]}</div>
                 <div>${this.data.venue.address.localized_multi_line_address_display[1]}</div>
-                <div id="event${index}" class="event addLocation">Add location to route</div>`
+                <div id="event${index}" class="route addLocation">Add location to route</div></div>`
     })
     this.infoWindow = infoWindow;
     this.marker = new google.maps.Marker({
@@ -86,8 +87,8 @@ class Marker {
     this.name = biz.name;
 
     const infoWindow = new google.maps.InfoWindow({
-      content: `<div>${this.name}</div>
-                <div id="business${index}" class="business addLocation">Add location to route</div>`
+      content: `<div class="businessInfoWindow"><div>${this.name}</div>
+                <div id="business${index}" class="route addLocation">Add location to route</div></div>`
     })
     this.infoWindow = infoWindow;
 
