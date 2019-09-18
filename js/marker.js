@@ -1,5 +1,5 @@
 class Marker {
-  constructor(map, data, domElement, updateCenterCallback, closeWindows) {
+  constructor(map, data, domElement, updateCenterCallback, closeWindows, markerExpandClickHandler) {
     this.eventClickHandler = this.eventClickHandler.bind(this)
     this.bizClickHandler = this.bizClickHandler.bind(this);
     // this.removeMarker = this.removeMarker.bind(this)
@@ -12,6 +12,8 @@ class Marker {
     this.marker = null;
     this.name = null;
     this.infoWindow = null;
+    this.position = null;
+    this.markerExpandClickHandler = markerExpandClickHandler;
   }
 
   renderUser = (position) => {
@@ -25,7 +27,7 @@ class Marker {
   }
 
 
-  renderEvent = (event) => {
+  renderEvent = (event, index) => {
     const position = {
       lat: parseFloat(event.venue.address.latitude),
       lng: parseFloat(event.venue.address.longitude)
@@ -48,7 +50,8 @@ class Marker {
     const infoWindow = new google.maps.InfoWindow({
       content: `<div>${this.name}</div>
                 <div>${this.data.venue.address.localized_multi_line_address_display[0]}</div>
-                <div>${this.data.venue.address.localized_multi_line_address_display[1]}</div>`
+                <div>${this.data.venue.address.localized_multi_line_address_display[1]}</div>
+                <div id="event${index}" class="event addLocation">Add location to route</div>`
     })
     this.infoWindow = infoWindow;
     this.marker = new google.maps.Marker({
@@ -61,11 +64,12 @@ class Marker {
     this.marker.addListener('click', () => {
       this.closeWindows();
       infoWindow.open(this.map, this.marker)
+      this.markerExpandClickHandler(this.domElement);
     });
 
   }
 
-  renderBiz = (biz) => {
+  renderBiz = (biz, index) => {
     const position = {
       lat: parseFloat(biz.coordinates.latitude),
       lng: parseFloat(biz.coordinates.longitude)
@@ -82,7 +86,8 @@ class Marker {
     this.name = biz.name;
 
     const infoWindow = new google.maps.InfoWindow({
-      content: `<div>${this.name}</div>`
+      content: `<div>${this.name}</div>
+                <div id="business${index}" class="business addLocation">Add location to route</div>`
     })
     this.infoWindow = infoWindow;
 
@@ -96,6 +101,7 @@ class Marker {
     this.marker.addListener('click', () => {
       this.closeWindows();
       infoWindow.open(this.map, this.marker)
+      this.markerExpandClickHandler(this.domElement);
     });
   }
 

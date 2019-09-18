@@ -42,6 +42,7 @@ class App {
 
     $('.eventsContainer').on('click', '.event', this.domClickHandler);
     $('.businessContainer').on('click', '.business', this.domClickHandler);
+    $('.mapContainer').on('click', '.addLocation', this.addLocationClickHandler);
   }
 
   domClickHandler = (event) => {
@@ -55,6 +56,22 @@ class App {
                                         lng: parseFloat(this.apiList.eventbrite.data.events[lastLetter].venue.address.longitude)});
     }
 
+  }
+
+  addLocationClickHandler = (event) => {
+    console.log("add location clicked", event.currentTarget);
+    let target = $(event.currentTarget);
+    let clickId = target.attr('id');
+    let type = '';
+    if (target.hasClass("business")){
+      type = "biz";
+      clickId = clickId.substr(8);
+    } else {
+      type = "event";
+      clickId = clickId.substr(5);
+    }
+    console.log(clickId);
+    this.apiList['map'].addRouteDestination(type, clickId);
   }
 
   getCurrentDate() {
