@@ -9,7 +9,7 @@ body{
 .mainHeader > * {
   margin: 0 auto;
   display: inline-block;
-  width: 32.8%;
+  width: 100%;
   border: 2px solid red;
   text-align: center;
 }
@@ -44,13 +44,9 @@ body{
   border: 2px solid blue;
 }
 
-.business {
+.businessContainer > * {
   border: 2px solid red;
-  text-align: center;
-}
-.business > * {
   margin: 0 auto;
-  border: 2px solid pink;
 }
 .eventsContainer > * {
   border: 2px solid blue;
