@@ -45,6 +45,9 @@ class App {
   }
 
   domClickHandler = (event) => {
+    if ($(event.target).is("a")){
+      return;
+    }
     let lastLetter = $(event.currentTarget).attr('id').match(/\d+/);
     if ($(event.currentTarget).hasClass('business')) {
       this.apiList.map.updateLocation({ lat: parseFloat(this.apiList.yelp.businessesData.businesses[lastLetter].coordinates.latitude),

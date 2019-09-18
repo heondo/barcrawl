@@ -67,7 +67,7 @@ class Yelp {
                           <div class="categories">
                           ${businessCats}
                           </div>
-                          <a href=${business.url}>Visit Yelp<a>`
+                          <a href=${business.url} target="_blank" >Visit Yelp<a>`
                           })
       let businessName = business.name;
       let businessRating = Math.floor(business.rating)
