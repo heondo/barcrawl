@@ -89,10 +89,12 @@ body{
   background-repeat: no-repeat;
   transition-duration: 500ms;
   height: 47px;
-  margin: 10px auto;
+  margin: auto;
   border-radius: 15px;
   color: #FFFFFF;
   border: 2px solid #FF8A5B;
+  overflow: hidden;
+  width: 98%
 }
 
 .business-info .address {
@@ -116,7 +118,7 @@ body{
 
 .collapsed{
   flex: 0;
-  margin: auto;
+  margin: 1px;
 }
 
 .expanded {
@@ -137,7 +139,7 @@ body{
   z-index: 1;
   cursor: pointer;
   background-color: #62929E;
-} */
+}
 
 /* WEATHER STYLING */
 .weatherContainer{
