@@ -20,6 +20,8 @@ class App {
     $('.eventsContainer').empty();
     $('.businessContainer').empty();
     $('.weatherContainer').empty();
+    $('.destinationsAdded').empty();
+    $('.directionsPanel').empty();
     const userMarker = new Marker(this.apiList.map.mapObj, { name: "You" }, undefined, this.apiList.map.updateLocation, this.apiList.map.closeWindows, this.apiList.map.expandClickHandler);
     userMarker.renderUser({
       lat: this.userPositionLat,
@@ -65,6 +67,7 @@ class App {
     $('.eventsContainer').on('click', '.event', this.domClickHandler);
     $('.businessContainer').on('click', '.business', this.domClickHandler);
     $('.mapContainer').on('click', '.addLocation', this.addLocationClickHandler);
+    $('.calculateRouteButton').on('click', this.apiList.map.calculateAndDisplayRoute);
   }
 
   loadScreenHandler() {
@@ -113,19 +116,21 @@ class App {
   }
 
   addLocationClickHandler = (event) => {
-    console.log("add location clicked", event.currentTarget);
     let target = $(event.currentTarget);
     target.removeClass("addLocation").text("Added to route");
     let clickId = target.attr('id');
     let type = '';
+    var newDom = null;
     if (clickId.includes("business")){
+      newDom = $(".business." + clickId).clone();
       type = "biz";
       clickId = clickId.substr(8);
     } else {
+      newDom = $(".event." + clickId).clone();
       type = "events";
       clickId = clickId.substr(5);
     }
-    console.log(clickId);
+    $('.destinationsAdded').append(newDom);
     this.apiList['map'].addRouteDestination(type, clickId);
   }
 
