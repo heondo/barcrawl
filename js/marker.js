@@ -12,13 +12,8 @@ class Marker {
     this.name = null;
   }
 
-  // removeMarker = () => {
-  //   this.marker.setMap(null);
-  // }
 
   renderEvent = (event) => {
-    // var/
-    // console.log(event.venue.address)
     const position = {
       lat: parseFloat(event.venue.address.latitude),
       lng: parseFloat(event.venue.address.longitude)
@@ -43,7 +38,6 @@ class Marker {
       icon: icon
     })
     this.marker.addListener('click', this.eventClickHandler);
-    console.log(this.marker.setMap)
 
   }
 
