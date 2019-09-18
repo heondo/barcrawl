@@ -44,12 +44,20 @@ class App {
     this.apiList.eventbrite.retrieveData().then(data => this.apiList.map.addEvents(data.events))
                                           .catch(data => console.log(data));
 
-    this.apiList.yelp.retrieveData().then(data => this.apiList.map.addBiz(data.businesses))
+    this.apiList.yelp.retrieveData().then(data => {
+                                                    this.apiList.map.addBiz(data.businesses);
+                                                    $('.loading_screen_button').on('click', this.loadScreenHandler);
+                                                  })
                                     .catch(data => console.log(data));
 
     $('.eventsContainer').on('click', '.event', this.domClickHandler);
     $('.businessContainer').on('click', '.business', this.domClickHandler);
     $('.mapContainer').on('click', '.addLocation', this.addLocationClickHandler);
+  }
+
+  loadScreenHandler() {
+    let loadScreenDom = $(".loading_screen");
+    loadScreenDom.addClass('slide_to_top');
   }
 
   domClickHandler = (event) => {
