@@ -4,9 +4,10 @@ class googleMap {
     // this.updateLocation = this.updateLocation.bind(this),
     // this.events = events,
     // this.biz = biz,
+    this.updateLocation = this.updateLocation.bind(this)
     this.lat = lat,
-    this.lng = lng,
-    this.mapObj = null
+      this.lng = lng,
+      this.mapObj = null
     this.markers = {
       events: [],
       biz: []
@@ -26,14 +27,12 @@ class googleMap {
     this.mapObj = map;
   }
 
-  updateLocation(lat, lng) {
+  updateLocation(position) {
     // this.mapObj.
     // this.clearOverLays();
     // and then have the stuff
-    this.mapObj.setCenter({
-      lat: lat,
-      lng: lng }
-      )
+    console.log(this.mapObj)
+    this.mapObj.setCenter(position)
   }
 
   // clearOverLays() {
@@ -51,18 +50,22 @@ class googleMap {
   //   }
   // }
 
+
+
   addEvents(events) {
-    events.map((event) => {
-      const eventMarker = new Marker(this.mapObj, event);
+    // takes in the array data from eventbrite response and creates/renders Markers
+    // on the map
+    events.map((event, index) => {// add .
+      const eventMarker = new Marker(this.mapObj, event, `.event${index}`, this.updateLocation);
       this.markers.events.push(eventMarker);
       eventMarker.renderEvent(event);
-    })
+    });
   }
 
 
   addBiz(businesses) {
-    businesses.map((biz) => {
-      const bizMarker = new Marker(this.mapObj, biz);
+    businesses.map((biz, index) => {
+      const bizMarker = new Marker(this.mapObj, biz, `.business${index}`, this.updateLocation);
       this.markers.biz.push(bizMarker);
       bizMarker.renderBiz(biz);
     })
