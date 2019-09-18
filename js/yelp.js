@@ -53,7 +53,7 @@ class Yelp {
       var businessRating = Math.floor(this.businessesData.businesses[bizIndex].rating)
       var businessNameContainer = $('<div>').addClass('businessName').text(businessName);
       var businessRatingContainer = $('<div>').addClass('rating').css('background-image', `url('assets/images/ratings/${businessRating}.png')`);
-      var businessContainer = $('<div>').addClass(`business${bizIndex}`);
+      var businessContainer = $('<div>').addClass(`business business${bizIndex}`);
       businessContainer.append(businessNameContainer, businessRatingContainer);
       this.domElements.businessContainer.append(businessContainer);
     }
