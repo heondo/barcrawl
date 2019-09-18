@@ -142,14 +142,17 @@ class googleMap {
     this.markers = {
       events: [],
       biz: [],
-      user: null
+      user: null,
+      directions: []
     }
   }
 
   clearMarkers() {
     this.setMapOnAll(null);
     this.waypts = [];
-    this.directionsRenderer.setMap(null);
+    if (this.markers.directions.length){
+      this.directionsRenderer.setMap(null);
+    }
   }
 
   closeWindows = () => {
