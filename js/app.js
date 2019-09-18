@@ -10,7 +10,6 @@ class App {
 
   initApp() {
     navigator.geolocation.getCurrentPosition(this.retrieveUserPositon);
-    this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong);
   }
 
   updateLocation(data) {
@@ -27,6 +26,7 @@ class App {
   }
 
   initAJAX() {
+    this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong);
     this.apiList['eventbrite'] = new Eventbrite(this.userPositionLat, this.userPositionLong);
     this.apiList['yelp'] = new Yelp(this.userPositionLat, this.userPositionLong);
     this.apiList['weather'] = new WeatherData(this.userPositionLat, this.userPositionLong);
