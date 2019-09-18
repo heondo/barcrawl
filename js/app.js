@@ -33,10 +33,12 @@ class App {
     this.initializeMap();
     this.initAJAX();
   }
+
   initializeMap() {
     this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong);
     this.apiList.map.initMap();
   }
+
   initAJAX() {
     // this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong);
     this.apiList['eventbrite'] = new Eventbrite(this.userPositionLat, this.userPositionLong);
@@ -108,9 +110,4 @@ class App {
     this.apiList['map'].addRouteDestination(type, clickId);
   }
 
-  getCurrentDate() {
-    this.date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    let dateTime = date + ' ' + time;
-  }
 }
