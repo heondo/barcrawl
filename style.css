@@ -202,22 +202,24 @@ body{
   display: flex;
   flex-direction: column;
   height: 130px;
-  width: 180px;
-  border: 2px solid #FF8A5B;
-  border-radius: 20px;
+  width: 12%;
+  border: 2px solid #B3B5BB;
+  font-family: manrope-reg;
+  /* border-radius: 20px; */
   padding: 8px;
   color: white;
+  text-shadow: 2px 2px #817F75;
   background-size: stretch;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .WeatherHeader {
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
 
 .weather_box_text {
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 /* Google Autocomplete */

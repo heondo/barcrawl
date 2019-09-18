@@ -70,7 +70,7 @@ class Yelp {
                           <a href=${business.url} target="_blank" >Visit Yelp<a>`
                           })
       let businessName = business.name;
-      let businessRating = Math.floor(business.rating)
+      let businessRating = business.rating
       let businessNameContainer = $('<div>').addClass('businessName').text(businessName);
       let businessRatingContainer = $('<div>').addClass('rating').css('background-image', `url('assets/images/ratings/${businessRating}.png')`);
       let businessContainer = $('<div>').addClass(`business business${bizIndex}`).css('background-image', `url('assets/images/icons8-beer-48.png')`).attr("id", "business"+bizIndex);
