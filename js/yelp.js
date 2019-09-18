@@ -50,9 +50,9 @@ class Yelp {
   displayToBusinessList() {
     for(let bizIndex = 0; bizIndex < this.businessesData.businesses.length; bizIndex++) {
       var businessName = this.businessesData.businesses[bizIndex].name;
-      var businessRating = this.businessesData.businesses[bizIndex].rating
+      var businessRating = Math.floor(this.businessesData.businesses[bizIndex].rating)
       var businessNameContainer = $('<div>').addClass('businessName').text(businessName);
-      var businessRatingContainer = $('<div>').addClass('rating').text(businessRating);
+      var businessRatingContainer = $('<div>').addClass('rating').css('background-image', `url('assets/images/ratings/${businessRating}.png')`);
       var businessContainer = $('<div>').addClass('business');
       businessContainer.append(businessNameContainer, businessRatingContainer);
       this.domElements.businessContainer.append(businessContainer);

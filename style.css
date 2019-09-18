@@ -34,11 +34,7 @@ body{
 }
 .eventsContainer, .businessContainer {
   width: 20%;
-  height: 100%;
   text-align: center;
-  overflow: scroll;
-}
-.businessContainer {
   height: 500px;
   overflow: auto;
 }
@@ -55,4 +51,13 @@ body{
 .business > * {
   margin: 0 auto;
   border: 2px solid pink;
+}
+.eventsContainer > * {
+  border: 2px solid blue;
+}
+.rating {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 25px;
 }
