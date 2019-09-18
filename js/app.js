@@ -16,22 +16,27 @@ class App {
     this.apiList.map.clearMarkers();
     $('.eventsContainer').empty();
     $('.businessContainer').empty();
+    $('.weatherContainer').empty();
     this.initAJAX();
   }
 
   retrieveUserPositon(data) {
     this.userPositionLat = data.coords.latitude;
     this.userPositionLong = data.coords.longitude;
+    this.initializeMap();
     this.initAJAX();
   }
-
-  initAJAX() {
+  initializeMap() {
     this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong);
+    this.apiList.map.initMap();
+  }
+  initAJAX() {
+    // this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong);
     this.apiList['eventbrite'] = new Eventbrite(this.userPositionLat, this.userPositionLong);
     this.apiList['yelp'] = new Yelp(this.userPositionLat, this.userPositionLong);
     this.apiList['weather'] = new WeatherData(this.userPositionLat, this.userPositionLong);
 
-    this.apiList.map.initMap();
+    // this.apiList.map.initMap();
     this.apiList.weather.getWeatherData();
 
     this.apiList.eventbrite.retrieveData().then(data => this.apiList.map.addEvents(data.events))

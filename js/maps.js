@@ -112,6 +112,10 @@ class googleMap {
     // more details for that place.
     searchBox.addListener('places_changed', () => {
       var places = searchBox.getPlaces();
+      var newUserLat = places[0].geometry.location.lat();
+      var newUserLong = places[0].geometry.location.lng();
+      console.log(`Changed lat is ${newUserLat}, changed long is ${newUserLong}`);
+      this.updateDom(newUserLat, newUserLong);
 
       if (places.length == 0) {
         return;
@@ -144,6 +148,7 @@ class googleMap {
           title: place.name,
           position: place.geometry.location
         }));
+        console.log(markers);
 
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
@@ -155,5 +160,10 @@ class googleMap {
       this.mapObj.fitBounds(bounds);
     });
   }
+    updateDom(newLat, newLong) {
+      barCrawl.userPositionLat = newLat;
+      barCrawl.userPositionLong = newLong;
+      barCrawl.updateLocation();
+    }
 
 }
