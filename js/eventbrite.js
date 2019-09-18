@@ -60,6 +60,7 @@ class Eventbrite {
       //                 endDate: endDateTime[0], endTime: endDateTime[1] };
       newEvent.address = thisEvent.venue.localized_multi_line_address_display;
       this.eventStorage.push(newEvent);
+      console.log("event summary", thisEvent.summary)
       let eventDom = $("<div>", {
         id: "event"+eventIndex,
         class: "event event" + eventIndex,
@@ -67,7 +68,8 @@ class Eventbrite {
               <div class="address">${thisEvent.venue.address.localized_multi_line_address_display[0]}
               <br>${thisEvent.venue.address.localized_multi_line_address_display[1]}</div>
               <div class='event-time'>${startDateTime.month}/${startDateTime.dayNum} ${startDateTime.hour}:${startDateTime.minute} ${startDateTime.ampm} - ${endDateTime.hour}:${endDateTime.minute} ${endDateTime.ampm}</div>
-              <div class="event-info>${thisEvent.summary}</div>`});
+              <div class="event-info">Event Summary:<br>${thisEvent.summary}</div>
+              <a class="event-url" href="${thisEvent.url} target=_blank">Visit Event Site</a>`});
 
       eventDom.css('background-image', `url('assets/images/icons8-event-64.png')`)
       this.domContainer.append(eventDom);
