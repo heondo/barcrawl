@@ -13,10 +13,17 @@ class App {
   }
 
   updateLocation(data) {
+    console.log(this.apiList.map);
     this.apiList.map.clearMarkers();
     $('.eventsContainer').empty();
     $('.businessContainer').empty();
     $('.weatherContainer').empty();
+    const userMarker = new Marker(this.apiList.map.mapObj, { name: "You" }, undefined, this.apiList.map.updateLocation, this.apiList.map.closeWindows, this.apiList.map.expandClickHandler);
+    userMarker.renderUser({
+      lat: this.userPositionLat,
+      lng: this.userPositionLong
+    });
+    this.apiList.map.markers.user = userMarker;
     this.initAJAX();
   }
 
