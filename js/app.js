@@ -32,6 +32,22 @@ class App {
 
     this.apiList.yelp.retrieveData().then(data => this.apiList.map.addBiz(data.businesses))
                                     .catch(data => console.log(data));
+
+    $('.eventsContainer').on('click', '.event', this.domClickHandler);
+    $('.businessContainer').on('click', '.business', this.domClickHandler);
+  }
+
+  domClickHandler = (event) => {
+    let clickId = $(event.currentTarget).attr('class');
+    let lastLetter = clickId[clickId.length - 1];
+    if ($(event.currentTarget).hasClass('business')) {
+      this.apiList.map.updateLocation({ lat: parseFloat(this.apiList.yelp.businessesData.businesses[lastLetter].coordinates.latitude),
+                                        lng: parseFloat(this.apiList.yelp.businessesData.businesses[lastLetter].coordinates.longitude)});
+    } else {
+      this.apiList.map.updateLocation({ lat: parseFloat(this.apiList.eventbrite.data.events[lastLetter].venue.address.latitude),
+                                        lng: parseFloat(this.apiList.eventbrite.data.events[lastLetter].venue.address.longitude)});
+    }
+
   }
 
   getCurrentDate() {
