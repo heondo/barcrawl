@@ -4,6 +4,8 @@ class googleMap {
     // this.updateLocation = this.updateLocation.bind(this),
     // this.events = events,
     // this.biz = biz,
+    this.setMapOnAll = this.setMapOnAll.bind(this);
+    this.clearMarkers = this.clearMarkers.bind(this);
     this.updateLocation = this.updateLocation.bind(this)
     this.lat = lat,
       this.lng = lng,
@@ -28,28 +30,32 @@ class googleMap {
   }
 
   updateLocation(position) {
-    // this.mapObj.
-    // this.clearOverLays();
-    // and then have the stuff
-    console.log(this.mapObj)
     this.mapObj.setCenter(position)
   }
 
-  // clearOverLays() {
-  //   console.log('trying to delete', this.markers)
-  //   for (let marker of this.markers.events){
-  //     marker.marker.setMap(null);
-  //   }
-  //   for (let marker of this.markers.biz) {
-  //     marker.marker.setMap(null);
-  //   }
+  setMapOnAll(map) {
+    for (let eventMarker of this.markers.events) {
+      eventMarker.marker.setMap(null);
+      // marker.marker.setMap(null);
+    }
+    for (let bizMarker of this.markers.biz) {
 
-  //   this.markers = {
-  //     events: [],
-  //     biz: []
-  //   }
-  // }
+      bizMarker.marker.setMap(null);
+    }
 
+    this.markers = {
+      events: [],
+      biz: []
+    }
+  }
+
+  clearMarkers() {
+    this.markers = {
+      events: [],
+      biz: []
+    }
+    this.setMapOnAll(null);
+  }
 
 
   addEvents(events) {
