@@ -106,11 +106,11 @@ body{
   color: blue;
 }
 
-.event {
+.event{
   background-color: #EA526F;
 }
 
-.business {
+.business{
   background-color: #25CED1;
 }
 
@@ -253,6 +253,17 @@ body{
   #target {
     width: 345px;
   }
+  .businessInfoWindow *, .eventInfoWindow *{
+    padding: 5px;
+  }
+  .route{
+    border-radius: 15px;
+    border: 2px solid #FF8A5B;
+    padding: 5px;
+  }
+  .addLocation:hover{
+    background-color: lightgray;
+
 
   .loading_screen {
     display: none;

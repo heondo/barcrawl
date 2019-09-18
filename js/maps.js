@@ -82,7 +82,7 @@ class googleMap {
     // takes in the array data from eventbrite response and creates/renders Markers
     // on the map
     events.map((event, index) => {// add .
-      const eventMarker = new Marker(this.mapObj, event, `.event${index}`, this.updateLocation, this.closeWindows);
+      const eventMarker = new Marker(this.mapObj, event, `.event${index}`, this.updateLocation, this.closeWindows, this.expandClickHandler);
       this.markers.events.push(eventMarker);
       eventMarker.renderEvent(event, index);
     });
@@ -91,7 +91,7 @@ class googleMap {
 
   addBiz(businesses) {
     businesses.map((biz, index) => {
-      const bizMarker = new Marker(this.mapObj, biz, `.business${index}`, this.updateLocation, this.closeWindows);
+      const bizMarker = new Marker(this.mapObj, biz, `.business${index}`, this.updateLocation, this.closeWindows, this.expandClickHandler);
       this.markers.biz.push(bizMarker);
       bizMarker.renderBiz(biz, index);
     })

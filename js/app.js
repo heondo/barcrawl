@@ -6,6 +6,8 @@ class App {
     this.userPositionLong = null;
     this.retrieveUserPositon = this.retrieveUserPositon.bind(this);
     this.initApp = this.initApp.bind(this);
+    this.domClickHandler = this.domClickHandler.bind(this);
+    this.expandAndCollapse = this.expandAndCollapse.bind(this);
   }
 
   initApp() {
@@ -35,7 +37,7 @@ class App {
   }
 
   initializeMap() {
-    this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong);
+    this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong, this.expandAndCollapse);
     this.apiList.map.initMap();
   }
 
@@ -63,11 +65,16 @@ class App {
     if ($(event.target).is("a")){
       return;
     }
-    let lastLetter = $(event.currentTarget).attr('id').match(/\d+/);
-    if ($(event.currentTarget).hasClass('business')) {
+    this.expandAndCollapse($(event.currentTarget));
+  }
+
+  expandAndCollapse = (element) => {
+    console.log(element);
+    let lastLetter = element.attr('id').match(/\d+/);
+    if (element.hasClass('business')) {
       this.apiList.map.updateLocation({ lat: parseFloat(this.apiList.yelp.businessesData.businesses[lastLetter].coordinates.latitude),
                                         lng: parseFloat(this.apiList.yelp.businessesData.businesses[lastLetter].coordinates.longitude)});
-      if ($(event.currentTarget).hasClass("expanded")){
+      if (element.hasClass("expanded")){
         $(".business").removeClass("collapsed");
         $(".business").removeClass("expanded");
         return;
@@ -75,12 +82,12 @@ class App {
       else{
         $(".business").removeClass("expanded");
         $(".business").addClass("collapsed")
-        $(event.currentTarget).removeClass("collapsed").addClass("expanded");
+        element.removeClass("collapsed").addClass("expanded");
       }
     } else {
       this.apiList.map.updateLocation({ lat: parseFloat(this.apiList.eventbrite.data.events[lastLetter].venue.address.latitude),
                                         lng: parseFloat(this.apiList.eventbrite.data.events[lastLetter].venue.address.longitude)});
-      if ($(event.currentTarget).hasClass("expanded")) {
+      if (element.hasClass("expanded")) {
         $(".event").removeClass("collapsed");
         $(".event").removeClass("expanded");
         return;
@@ -88,18 +95,18 @@ class App {
       else {
         $(".event").removeClass("expanded");
         $(".event").addClass("collapsed")
-        $(event.currentTarget).removeClass("collapsed").addClass("expanded");
+        element.removeClass("collapsed").addClass("expanded");
       }
     }
-
   }
 
   addLocationClickHandler = (event) => {
     console.log("add location clicked", event.currentTarget);
     let target = $(event.currentTarget);
+    target.removeClass("addLocation").text("Added to route");
     let clickId = target.attr('id');
     let type = '';
-    if (target.hasClass("business")){
+    if (clickId.includes("business")){
       type = "biz";
       clickId = clickId.substr(8);
     } else {
