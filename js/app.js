@@ -15,10 +15,17 @@ class App {
   }
 
   updateLocation(data) {
+    console.log(this.apiList.map);
     this.apiList.map.clearMarkers();
     $('.eventsContainer').empty();
     $('.businessContainer').empty();
     $('.weatherContainer').empty();
+    const userMarker = new Marker(this.apiList.map.mapObj, { name: "You" }, undefined, this.apiList.map.updateLocation, this.apiList.map.closeWindows, this.apiList.map.expandClickHandler);
+    userMarker.renderUser({
+      lat: this.userPositionLat,
+      lng: this.userPositionLong
+    });
+    this.apiList.map.markers.user = userMarker;
     this.initAJAX();
   }
 
@@ -28,10 +35,12 @@ class App {
     this.initializeMap();
     this.initAJAX();
   }
+
   initializeMap() {
     this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong, this.expandAndCollapse);
     this.apiList.map.initMap();
   }
+
   initAJAX() {
     // this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong);
     this.apiList['eventbrite'] = new Eventbrite(this.userPositionLat, this.userPositionLong);
@@ -108,9 +117,4 @@ class App {
     this.apiList['map'].addRouteDestination(type, clickId);
   }
 
-  getCurrentDate() {
-    this.date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    let dateTime = date + ' ' + time;
-  }
 }

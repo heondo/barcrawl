@@ -3,7 +3,8 @@ body{
   font-family: Arial, Helvetica, sans-serif;
   background: -webkit-linear-gradient(top, rgba(252,234,222,1) 1%,rgba(255,255,255,1) 76%,rgba(255,255,255,1) 76%); /* Chrome10-25,Safari5.1-6 */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceade', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-
+  padding: 0;
+  margin: 0;
 }
 
 .mainHeader {
@@ -85,6 +86,7 @@ body{
 
 .business, .event {
   background-size: 30px;
+  /* background-position: center; */
   background-position: left;
   background-repeat: no-repeat;
   transition-duration: 500ms;
@@ -94,11 +96,13 @@ body{
   color: #FFFFFF;
   border: 2px solid #FF8A5B;
   overflow: hidden;
-  width: 98%
+  width: 98%;
+  align-items: center;
+  justify-content: center;
 }
 
-.business-info .address {
-  font-size: 75%;
+.address {
+  font-size: .85em;
   color: blue;
 }
 
@@ -111,14 +115,15 @@ body{
 }
 
 .business:hover {
-  height: 50px;
+  /* height: 50px; */
   background-color: #62929E;
-  color: white;
+  /* color: white; */
 }
 
 .collapsed{
   flex: 0;
-  margin: 1px;
+  margin: auto;
+  border: 0;
 }
 
 .expanded {
@@ -126,6 +131,7 @@ body{
   margin-bottom: 5px;
   justify-content: center;
   flex: 1;
+  background-position: center;
 }
 
 .business:hover:not(.expanded) {
@@ -156,6 +162,7 @@ body{
 }
 .weatherContainer > * {
   display: flex;
+  flex-direction: column;
   height: 130px;
   width: 180px;
   border: 2px solid #FF8A5B;
@@ -165,6 +172,14 @@ body{
   background-size: stretch;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.WeatherHeader {
+  font-size: 2rem;
+}
+
+.weather_box_text {
+  font-size: 2rem;
 }
 
 /* Google Autocomplete */
@@ -248,4 +263,16 @@ body{
   }
   .addLocation:hover{
     background-color: lightgray;
+
+
+  .loading_screen {
+    display: none;
+    top:0;
+    margin: 0;
+    padding: 0;
+    background-color: #555;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
   }

@@ -55,18 +55,15 @@ class googleMap {
 
       bizMarker.marker.setMap(null);
     }
-
+    this.markers.user.marker.setMap(null);
     this.markers = {
       events: [],
-      biz: []
+      biz: [],
+      user: null
     }
   }
 
   clearMarkers() {
-    this.markers = {
-      events: [],
-      biz: []
-    }
     this.setMapOnAll(null);
   }
 
@@ -145,7 +142,6 @@ class googleMap {
         // Create a marker for each place.
         markers.push(new google.maps.Marker({
           map: this.mapObj,
-          icon: icon,
           title: place.name,
           position: place.geometry.location
         }));
