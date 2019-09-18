@@ -49,16 +49,37 @@ class Yelp {
   }
   displayToBusinessList() {
     for(let bizIndex = 0; bizIndex < this.businessesData.businesses.length; bizIndex++) {
-      var businessName = this.businessesData.businesses[bizIndex].name;
-      var businessRating = Math.floor(this.businessesData.businesses[bizIndex].rating)
-      var businessNameContainer = $('<div>').addClass('businessName').text(businessName);
-      var businessRatingContainer = $('<div>').addClass('rating').css('background-image', `url('assets/images/ratings/${businessRating}.png')`);
-      var businessContainer = $('<div>').addClass(`business business${bizIndex}`).css('background-image', `url('assets/images/icons8-beer-48.png')`);;
-      businessContainer.append(businessNameContainer, businessRatingContainer);
+      let business = this.businessesData.businesses[bizIndex];
+      // join category titles by commas, display
+      let businessCats = ""
+      business.categories.map((cat) => {
+        businessCats += cat.title + "\n";
+      });
+      // businessCats = businessCats.slice(0, businessCats.length-3)
+      let businessInfo = $("<div>", {
+                          class: "business-info",
+                          html: `
+                          <div class=rating-count>reviews: ${business.review_count}</div>
+                          <div class="address">
+                          ${business.location.display_address[0]}<br>
+                          ${business.location.display_address[1]}<br>
+                          </div>
+                          <div class="categories">
+                          ${businessCats}
+                          </div>
+                          <a href=${business.url}>Visit Yelp<a>`
+                          })
+      let businessName = business.name;
+      let businessRating = Math.floor(business.rating)
+      let businessNameContainer = $('<div>').addClass('businessName').text(businessName);
+      let businessRatingContainer = $('<div>').addClass('rating').css('background-image', `url('assets/images/ratings/${businessRating}.png')`);
+      let businessContainer = $('<div>').addClass(`business business${bizIndex}`).css('background-image', `url('assets/images/icons8-beer-48.png')`).attr("id", "business"+bizIndex);
+      businessContainer.append(businessNameContainer, businessRatingContainer, businessInfo);
       this.domElements.businessContainer.append(businessContainer);
     }
   }
-3
+
+
   errorProcessingData() {
     console.log('There was an error recieving data on the yelp object.');
   }
