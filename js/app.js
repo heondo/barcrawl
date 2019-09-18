@@ -34,6 +34,7 @@ class App {
     this.userPositionLong = data.coords.longitude;
     this.initializeMap();
     this.initAJAX();
+    this.initClickHandlers();
   }
 
   initializeMap() {
@@ -55,7 +56,9 @@ class App {
 
     this.apiList.yelp.retrieveData().then(data => this.apiList.map.addBiz(data.businesses))
                                     .catch(data => console.log(data));
+  }
 
+  initClickHandlers(){
     $('.eventsContainer').on('click', '.event', this.domClickHandler);
     $('.businessContainer').on('click', '.business', this.domClickHandler);
     $('.mapContainer').on('click', '.addLocation', this.addLocationClickHandler);
@@ -65,6 +68,7 @@ class App {
     if ($(event.target).is("a")){
       return;
     }
+    console.log(event.currentTarget);
     this.expandAndCollapse($(event.currentTarget));
   }
 
