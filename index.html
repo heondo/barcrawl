@@ -6,7 +6,6 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="style.css">
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWq6apxh7IJs8njuJgCEJf5QPenKjrCYc"></script>
   <script src="js/data_test.js"></script>
   <script src="js/marker.js"></script>
   <script src="js/yelp.js"></script>
@@ -19,12 +18,11 @@
 
 <body>
   <header class="mainHeader">
-    <h1 class="headerName">Bar Crawler</h1>
+    <h1 class="headerName">Bar Crawl</h1>
   </header>
   <div class="weatherContainer">
-
   </div>
-  <!-- <input id="searchBar" class="searchBar" value="Search goes here"> -->
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
   <div class="mainContainer">
     <div class="eventsContainer">
     </div>
@@ -34,9 +32,9 @@
       </div>
     </div>
     <div class="businessContainer">
-
     </div>
   </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWq6apxh7IJs8njuJgCEJf5QPenKjrCYc&libraries=places"></script>
 </body>
 
 </html>
