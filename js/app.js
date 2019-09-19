@@ -85,7 +85,7 @@ class App {
 
     this.apiList.yelp.retrieveData().then(data => {
                                                     this.apiList.map.addBiz(data.businesses);
-                                                    $('.loading_screen_button').on('click', this.loadScreenHandler);
+                                                    this.loadScreenHandler();
                                                   })
                                     .catch(data => console.log(data));
   }
@@ -110,6 +110,7 @@ class App {
 */
 
   loadScreenHandler() {
+    $('.loading_icon').toggleClass('hidden');
     let loadScreenDom = $(".loading_screen");
     loadScreenDom.addClass('slide_to_top');
   }

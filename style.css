@@ -283,11 +283,11 @@ body{
 
 .loading_screen {
   font-family: manrope-bold;
-  display: block;
-  top:0;
+  display: flex;
+  top: 0;
   margin: 0;
   padding: 0;
-  background-color: #555;
+  background-color: #201f1e;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -301,11 +301,15 @@ body{
   text-align: center;
   left: 50%;
 }
+.loading_icon {
+  width: 400px;
+  height: 300px;
+  background-image: url('assets/images/loading2.gif');
+  margin: 0 auto;
+}
 
 .welcome_text {
-  position: relative;
-  top: 30%;
-  left:40%;
+  margin: auto;
   font-size: 600%;
   color: white;
 }
@@ -323,4 +327,7 @@ body{
   max-height: 25px;
   flex: 1;
   margin: 3px;
+}
+.hidden {
+  display: none;
 }
