@@ -1,8 +1,5 @@
 const darkSkyApi = "10645085591c29ce58fa6f682ac0ae69";
 
-/* Class WeatherData takes in user's latitude and longitude coordinates
-*
-*/
 class WeatherData {
   constructor(lat, lng, date) {
     this.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
