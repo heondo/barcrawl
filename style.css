@@ -4,18 +4,8 @@
 }
 
 @font-face {
-  font-family: manrope-light;
-  src: url(assets/font/light.otf)
-}
-
-@font-face {
   font-family: manrope-bold;
   src: url(assets/font/bold.otf)
-}
-
-@font-face {
-  font-family: manrope-thin;
-  src: url(assets/font/thin.otf)
 }
 
 body{
@@ -24,7 +14,6 @@ body{
   background-color: rgb(182, 182, 182);
   padding: 0;
   margin: 0;
-  /* font-family:  */
 }
 
 .mainHeader {
@@ -75,8 +64,6 @@ body{
   width: 20%;
   text-align: center;
   height: 480px;
-  overflow-y: hidden;
-  overflow-x: hidden;
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -85,7 +72,6 @@ body{
   display: flex;
   flex-direction: column;
   z-index: 2;
-  /* justify-content: space-evenly; */
 }
 
 .eventContainer {
@@ -101,11 +87,6 @@ body{
   height: 500px;
 }
 
-
-/* .business:hover, .events:hover {
-  height: 80%;
-} */
-
 .rating {
   background-size: contain;
   background-position: center;
@@ -116,13 +97,11 @@ body{
 .business, .event {
   font-family: manrope-reg;
   background-size: 30px;
-  /* background-position: center; */
   background-position: left;
   background-repeat: no-repeat;
   transition-duration: 500ms;
   display: inline-block;
   border-radius: 2px;
-  /* flex: 1; */
   max-height: 25px;
   margin-bottom: 1%;
   color: rgb(53, 53, 53);
@@ -130,7 +109,6 @@ body{
   width: 98%;
   align-items: center;
   justify-content: center;
-  /* background */
 }
 
 .address {
@@ -148,18 +126,12 @@ body{
 
 .business{
   background-color: #C5D9E2;
-  /* color: black */
 }
 
 .businessName {
   margin-bottom : 10px;
 }
 
-.business:hover {
-  /* height: 50px; */
-  background-color: #62929E;
-  /* color: white; */
-}
 
 .collapsed{
   flex: 0;
@@ -170,9 +142,7 @@ body{
 .expanded {
   margin-top: 5px;
   margin-bottom: 5px;
-  justify-content: center;
   flex: 1;
-  background-position: center;
   max-height: 100%;
 }
 
@@ -209,7 +179,6 @@ body{
   width: 12%;
   border: 2px solid #B3B5BB;
   font-family: manrope-reg;
-  /* border-radius: 20px; */
   padding: 8px;
   color: white;
   text-shadow: 2px 2px #817F75;
@@ -302,6 +271,7 @@ body{
 .businessInfoWindow *, .eventInfoWindow *{
   padding: 5px;
 }
+
 .route{
   border-radius: 15px;
   border: 2px solid #FF8A5B;
@@ -312,6 +282,7 @@ body{
 }
 
 .loading_screen {
+  font-family: manrope-bold;
   display: block;
   top:0;
   margin: 0;
@@ -326,7 +297,7 @@ body{
 .loading_screen_button {
   border: 1px solid white;
   font-size: 50%;
-  width: 8%;
+  width: 14%;
   text-align: center;
   left: 50%;
 }

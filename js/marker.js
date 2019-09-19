@@ -1,8 +1,6 @@
 class Marker {
   constructor(map, data, domElement, updateCenterCallback, closeWindows, markerExpandClickHandler) {
     this.eventClickHandler = this.eventClickHandler.bind(this)
-    this.bizClickHandler = this.bizClickHandler.bind(this);
-    // this.removeMarker = this.removeMarker.bind(this)
     this.closeWindows = closeWindows;
     this.updateCenterCallback = updateCenterCallback;
     this.domElement = $(domElement);
@@ -15,18 +13,30 @@ class Marker {
     this.position = null;
     this.markerExpandClickHandler = markerExpandClickHandler;
   }
+  /**
+   creates and renders the user's marker on the Map
 
+   * @param {object} position: object containing lat and lng key/value pairs
+   * @return {none}
+  */
   renderUser = (position) => {
     console.log(position);
     const userMark = new google.maps.Marker({
       position: position,
       map: this.map,
       title: this.data.name,
-      // icon: icon
     })
     this.marker = userMark;
   }
 
+/**
+ * creates and renders an event marker + info window on the Map with given
+  api response data
+
+  * @param {object} position - object containing singular event response data from eventbrite api
+  * @param {number} index - number to index its position in the array
+  * @return {none} - nothing
+ */
 
   renderEvent = (event, index) => {
     const position = {
@@ -34,20 +44,14 @@ class Marker {
       lng: parseFloat(event.venue.address.longitude)
     }
     this.position = position;
-
     const icon = {
       url: "assets/images/icons8-event-64.png", // url
       scaledSize: new google.maps.Size(30, 30), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
     };
-
-    // console.log(this.data.venue.address.localized_multi_line_address_display[0])
-    // console.log(position)
     this.type = "events"
     this.name = event.name.text;
-
-    // console.log(someMarker.setMap)
     const infoWindow = new google.maps.InfoWindow({
       content: `<div class="eventInfoWindow"><div>${this.name}</div>
                 <div>${this.data.venue.address.localized_multi_line_address_display[0]}</div>
@@ -70,6 +74,14 @@ class Marker {
 
   }
 
+/**
+  * creates and renders a business marker + info window on the Map with given
+  * api response data
+
+  * @param {object} position: object containing singular business response data from Yelp api
+  * @param {number} index: number to index its position in the array
+  * @return {none}
+ */
   renderBiz = (biz, index) => {
     const position = {
       lat: parseFloat(biz.coordinates.latitude),
@@ -107,14 +119,10 @@ class Marker {
   }
 
 
-
+/*
+  click handler for marker object to set the position of the map to the marker
+*/
   eventClickHandler = () => {
-    // should open up information about
    this.updateCenterCallback(this.position);
-    // this.map.setCenter(this.position)
-  }
-
-  bizClickHandler = () => {
-    this.updateCenterCallback(this.position);
   }
 }

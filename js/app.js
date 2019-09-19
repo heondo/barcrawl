@@ -1,7 +1,7 @@
+/* Class definition for App */
 class App {
   constructor() {
     this.apiList = {};
-    this.date = new Date();
     this.userPositionLat = null;
     this.userPositionLong = null;
     this.retrieveUserPositon = this.retrieveUserPositon.bind(this);
@@ -10,12 +10,23 @@ class App {
     this.expandAndCollapse = this.expandAndCollapse.bind(this);
   }
 
+/**
+* Gets position of user at app start
+* @param - none
+* @return - none
+*/
+
   initApp() {
     navigator.geolocation.getCurrentPosition(this.retrieveUserPositon);
   }
 
-  updateLocation(data) {
-    console.log(this.apiList.map);
+/**
+* Updates location from user entry, updates DOM and map
+* @param - none
+* @return - none
+*/
+
+  updateLocation() {
     this.apiList.map.clearMarkers();
     $('.eventsContainer').empty();
     $('.businessContainer').empty();
@@ -31,6 +42,12 @@ class App {
     this.initAJAX();
   }
 
+/**
+* Sets lat and lng, calls init methods
+* @param {object} - object returned from initApp()
+* @return - none
+*/
+
   retrieveUserPositon(data) {
     this.userPositionLat = data.coords.latitude;
     this.userPositionLong = data.coords.longitude;
@@ -39,18 +56,28 @@ class App {
     this.initClickHandlers();
   }
 
+/**
+* Instantiates map
+* @param - none
+* @return - none
+*/
+
   initializeMap() {
     this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong, this.expandAndCollapse);
     this.apiList.map.initMap();
   }
 
+/**
+* Instantiates API classes, calls retrieveData methods for each class, updates DOM
+* @param - none
+* @return - none
+*/
+
   initAJAX() {
-    // this.apiList['map'] = new googleMap(this.userPositionLat, this.userPositionLong);
     this.apiList['eventbrite'] = new Eventbrite(this.userPositionLat, this.userPositionLong);
     this.apiList['yelp'] = new Yelp(this.userPositionLat, this.userPositionLong);
     this.apiList['weather'] = new WeatherData(this.userPositionLat, this.userPositionLong);
 
-    // this.apiList.map.initMap();
     this.apiList.weather.getWeatherData();
 
     this.apiList.eventbrite.retrieveData().then(data => this.apiList.map.addEvents(data.events))
@@ -63,6 +90,12 @@ class App {
                                     .catch(data => console.log(data));
   }
 
+/**
+* creates click handlers for DOM elements
+* @param - none
+* @return - none
+*/
+
   initClickHandlers(){
     $('.eventsContainer').on('click', '.event', this.domClickHandler);
     $('.businessContainer').on('click', '.business', this.domClickHandler);
@@ -70,21 +103,37 @@ class App {
     $('.calculateRouteButton').on('click', this.apiList.map.calculateAndDisplayRoute);
   }
 
+/**
+* click handler for loading screen
+* @param - none
+* @return - none
+*/
+
   loadScreenHandler() {
     let loadScreenDom = $(".loading_screen");
     loadScreenDom.addClass('slide_to_top');
   }
 
+/**
+* click handler for DOM elements
+* @param {object} - event
+* @return - none
+*/
+
   domClickHandler = (event) => {
     if ($(event.target).is("a")){
       return;
     }
-    console.log(event.currentTarget);
     this.expandAndCollapse($(event.currentTarget));
   }
 
+/**
+* expands/contracts DOM elements in the side bar
+* @param {object} - jQuery object
+* @return - none
+*/
+
   expandAndCollapse = (element) => {
-    console.log(element);
     let lastLetter = element.attr('id').match(/\d+/);
     if (element.hasClass('business')) {
       this.apiList.map.updateLocation({ lat: parseFloat(this.apiList.yelp.businessesData.businesses[lastLetter].coordinates.latitude),
@@ -114,6 +163,12 @@ class App {
       }
     }
   }
+
+/**
+* click handler for adding markers to the route
+* @param {object} - event object
+* @return - none
+*/
 
   addLocationClickHandler = (event) => {
     let target = $(event.currentTarget);

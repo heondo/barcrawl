@@ -1,11 +1,12 @@
-//data needed name, location, start date. Store description, picture, price
-
 /* Class definition for EventBrite AJAX Handler*/
 class Eventbrite {
 
-  /*
-   *
-   */
+/**
+* Constructor for class.
+* @param {num, num} - lat - latitude of current location
+*                     lng - longtitude of current location
+*/
+
   constructor(lat, lng) {
     this.key = 'YT37TJX32QTNUIJPS4NG';
     this.eventStorage = [];
@@ -16,12 +17,17 @@ class Eventbrite {
     this.render = this.render.bind(this);
   }
 
+/**
+* Retrives data from eventbrite server with AJAX Call.
+* @param - none
+* @return - Promise - resolve: response packet, reject: error response packet
+*/
+
   retrieveData() {
     return new Promise((resolve, reject) =>
     {
       let today = new Date();
       let dateInput = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate() + 7}T${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
-      console.log(dateInput);
       $.ajax({
         url: 'php/eventbrite.php',
         method: 'GET',
@@ -49,14 +55,25 @@ class Eventbrite {
     })
   }
 
+/**
+* Cuts down response packet to first 20 entries
+* @param (repsonse) - response packet
+* @return - trimmed packet
+*/
+
   postProcessData(response) {
-    console.log(typeof response);
     if(response.events.length < 20) {
       return response;
     }
     response.events.splice(20);
     return response;
   }
+
+/**
+* creates DOM elements for events sidebar
+* @param - none
+* @return - none
+*/
 
   render(){
     for (let eventIndex = 0; eventIndex < this.data.events.length; eventIndex++){
@@ -66,11 +83,8 @@ class Eventbrite {
       let endDateTime = this.parseDateTime(thisEvent.end.local);
       newEvent.name = thisEvent.name.html;
       newEvent.description = thisEvent.description;
-      // newEvent.times = { startDate: startDateTime[0], startTime: startDateTime[1],
-      //                 endDate: endDateTime[0], endTime: endDateTime[1] };
       newEvent.address = thisEvent.venue.localized_multi_line_address_display;
       this.eventStorage.push(newEvent);
-      console.log("event summary", thisEvent.summary)
       let eventDom = $("<div>", {
         id: "event"+eventIndex,
         class: "event event" + eventIndex,
@@ -86,19 +100,14 @@ class Eventbrite {
     }
   }
 
+/**
+* splits up date from packet into object with keys
+* @param {string} - str: date from repssonse packet
+* @return {object} - object with date components as keys
+*/
+
   parseDateTime(str){
-    // let dateTime = str.split("T");
-    // dateTime[1] = dateTime[1].substr(0, 5);
-    // var hours  = parseInt(dateTime[1]);
-    // if (hours > 12){
-    //   hours = hours - 12;
-    //   dateTime[1] = hours + dateTime[1].substr(2) + "pm";
-    // } else {
-    //   dateTime[1] += "am";
-    // }
-    // return dateTime;
     let date = new Date(str);
-    // console.log(`${date.getMonth()}/${date.getDate()} `)
     let minute = date.getMinutes();
     if (!minute){
       minute = '00'
