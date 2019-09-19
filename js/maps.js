@@ -1,9 +1,12 @@
+/**
+ * map class to store google maps map object and its data
+ * @param {number} lat - user's latitude
+ * @param {number} lng - user's longitude
+ * @param {function} expandClickHandler - click handler to expand map
+ * marker's dom elements
+ */
 class googleMap {
   constructor(lat, lng, expandClickHandler) {
-    // this.clearOverLays = this.clearOverLays.bind(this);
-    // this.updateLocation = this.updateLocation.bind(this),
-    // this.events = events,
-    // this.biz = biz,
     this.setMapOnAll = this.setMapOnAll.bind(this);
     this.clearMarkers = this.clearMarkers.bind(this);
     this.clearMarkers = this.clearMarkers.bind(this);
@@ -22,9 +25,12 @@ class googleMap {
     this.waypts = [],
     this.expandClickHandler = expandClickHandler;
   }
-
+  /**
+   * Function to create a google maps object and append to dom
+   * @param {none}
+   * @return {none}
+   */
   initMap() {
-    // could render initial businesses
     const map = new google.maps.Map(document.getElementById('mapDisplay'), {
       zoom: 14,
       center: {
@@ -124,15 +130,21 @@ class googleMap {
     });
     this.markers.user = userMarker;
   }
-
+  /**
+   * function to center the map to new location
+   * @param {object} position - object with lat lng coordinates
+   */
   updateLocation(position) {
     this.mapObj.panTo(position);
   }
-
+  /**
+   * function to remove google map markers from map
+   * @param {object} map - google maps object
+   * @return {none}
+   */
   setMapOnAll(map) {
     for (let eventMarker of this.markers.events) {
       eventMarker.marker.setMap(null);
-      // marker.marker.setMap(null);
     }
     for (let bizMarker of this.markers.biz) {
 
@@ -146,7 +158,11 @@ class googleMap {
       directions: []
     }
   }
-
+  /**
+   * function to call function to delete markers and previous directions and routes
+   * @param {none}
+   * @return {none}
+   */
   clearMarkers() {
     this.setMapOnAll(null);
     this.waypts = [];
@@ -154,29 +170,38 @@ class googleMap {
       this.directionsRenderer.setMap(null);
     }
   }
-
+  /**
+   * function to close the pop up window on marker in map
+   * @param {none}
+   * @return {none}
+   */
   closeWindows = () => {
     for (let eventMarker of this.markers.events) {
       eventMarker.infoWindow.close(this.map);
-      // marker.marker.setMap(null);
     }
     for (let bizMarker of this.markers.biz) {
       bizMarker.infoWindow.close(this.map);
     }
   }
-
-
+  /**
+   * function to add events and their markers on map
+   * @param {object} events - data from eventbright api
+   * @return {none}
+   */
   addEvents(events) {
     // takes in the array data from eventbrite response and creates/renders Markers
     // on the map
-    events.map((event, index) => {// add .
+    events.map((event, index) => {
       const eventMarker = new Marker(this.mapObj, event, `.event${index}`, this.updateLocation, this.closeWindows, this.expandClickHandler);
       this.markers.events.push(eventMarker);
       eventMarker.renderEvent(event, index);
     });
   }
-
-
+  /**
+   * function to add businesses and their markers on map
+   * @param {object}
+   * @return {none}
+   */
   addBiz(businesses) {
     businesses.map((biz, index) => {
       const bizMarker = new Marker(this.mapObj, biz, `.business${index}`, this.updateLocation, this.closeWindows, this.expandClickHandler);
@@ -184,35 +209,31 @@ class googleMap {
       bizMarker.renderBiz(biz, index);
     })
   }
-  // addMarkers(businesses)
-
-
+  /**
+   * function to initialize search bar on google maps with auto complete
+   * @param {none}
+   * @return {none}
+   */
   initAutocomplete() {
-    // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
     this.mapObj.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     var markers = [];
-    // Listen for the event fired when the user selects a prediction and retrieve
-    // more details for that place.
     searchBox.addListener('places_changed', () => {
       var places = searchBox.getPlaces();
       var newUserLat = places[0].geometry.location.lat();
       var newUserLong = places[0].geometry.location.lng();
-      console.log(`Changed lat is ${newUserLat}, changed long is ${newUserLong}`);
       this.updateDom(newUserLat, newUserLong);
 
       if (places.length == 0) {
         return;
       }
 
-      // Clear out the old markers.
       markers.forEach( (marker) => {
         marker.setMap(null);
       });
       markers = [];
-      // For each place, get the icon, name and location.
       var bounds = new google.maps.LatLngBounds();
       places.forEach( (place) => {
         if (!place.geometry) {
@@ -227,16 +248,13 @@ class googleMap {
           scaledSize: new google.maps.Size(25, 25)
         };
 
-        // Create a marker for each place.
         markers.push(new google.maps.Marker({
           map: this.mapObj,
           title: place.name,
           position: place.geometry.location
         }));
-        console.log(markers);
 
         if (place.geometry.viewport) {
-          // Only geocodes have viewport.
           bounds.union(place.geometry.viewport);
         } else {
           bounds.extend(place.geometry.location);
@@ -245,6 +263,11 @@ class googleMap {
       this.mapObj.fitBounds(bounds);
     });
   }
+  /**
+   * function to update dom with new map location
+   * @param {number} newLat - latitude coordinate
+   * @param {number} newLong - longitude coordinate
+   */
   updateDom(newLat, newLong) {
     barCrawl.userPositionLat = newLat;
     barCrawl.userPositionLong = newLong;
@@ -252,6 +275,11 @@ class googleMap {
     this.lng = newLong;
     barCrawl.updateLocation();
   }
+  /**
+   * function to create route for destinations picked
+   * @param {none}
+   * @return {none}
+   */
   calculateAndDisplayRoute() {
     var directionsService = new google.maps.DirectionsService;
     this.directionsRenderer = new google.maps.DirectionsRenderer;
@@ -272,10 +300,14 @@ class googleMap {
       }
     });
   }
+  /**
+   * function to push destinations to route array
+   * @param {string} type - of destination business or events
+   * @param {number} index - index of destination in array
+   * @return {none}
+   */
   addRouteDestination(type, index){
-    console.log("type", type);
     this.waypts.push({location: this.markers[type][index].position, stopover: true});
-    console.log (this.waypts);
   }
 
 }

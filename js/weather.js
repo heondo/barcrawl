@@ -1,8 +1,12 @@
 const darkSkyApi = "10645085591c29ce58fa6f682ac0ae69";
 
-/* Class WeatherData takes in user's latitude and longitude coordinates
-*
-*/
+/**
+ * Class WeatherData takes in user's latitude and longitude coordinates
+ * @param {number} latitude coordinate
+ * @param {number} longitude coordinate
+ * @param {object} javascript date object
+ *
+ */
 class WeatherData {
   constructor(lat, lng, date) {
     this.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -24,14 +28,12 @@ class WeatherData {
     }
     this.getWeatherDataSuccess = this.getWeatherDataSuccess.bind(this);
   }
+  /**
+  *  Creates dom elements and appends them to the weatherContainer dom element
+  *  @param {none}
+  *  @return {none}
+  */
   render() {
-    // let currentWeatherContainer = $("<div>", { sclass: "currentWeatherContainer" }).css("background-image", `url("assets/images/weather/${this.currentIcon}.png")`);
-    // let currentWeatherHeader = $("<div>", { class: "currentWeatherHeader", text: this.days[this.forcast[forcastIndex].date.getDay()] });
-    // let currentWeatherIcon = $("<div>", { class: "currentWeatherIcon weatherIcon" });
-    // let todayHighLow = $("<div>", { class: "todayHighLow", html: `${this.forcast[0].high} / ${this.forcast[0].low}&#176;F` });
-    // currentWeatherContainer.append(currentWeatherHeader, todayHighLow);
-    // this.domElements.current = currentWeatherContainer;
-    // this.domElements.container.append(currentWeatherContainer);
     for (var forcastIndex = 0; forcastIndex < this.forcast.length; forcastIndex++) {
       let forcastWeatherContainer = $("<div>", { class: `forcast${forcastIndex}WeatherContainer` }).css("background-image", `url("assets/images/weather/${this.forcast[forcastIndex].icon}.png")`);
       let forcastWeatherHeader = $("<div>", { class: `forcast${forcastIndex} WeatherHeader`, text: this.days[this.forcast[forcastIndex].date.getDay()] });
@@ -42,6 +44,11 @@ class WeatherData {
       this.domElements.container.append(forcastWeatherContainer);
     }
   }
+  /**
+   * Calls the ajax function for the weather api dark sky
+   * @param {none}
+   * @return {none}
+  */
   getWeatherData() {
     let ajaxConfigObject = {
       dataType: "json",
@@ -54,6 +61,13 @@ class WeatherData {
     }
     $.ajax(ajaxConfigObject).done(this.getWeatherDataSuccess).fail(this.getWeatherDataError).always(this.getWeatherDataAlways);
   }
+  /**
+   * Callback function for dark sky api
+   * processes data and saves relevant info into this object
+   * calls this.render
+   * @param {object} data - dark sky json data
+   * @return {none}
+   */
   getWeatherDataSuccess(data) {
     console.log(data);
     this.currentDate = this.createNewDate(data.currently.time);
@@ -72,16 +86,37 @@ class WeatherData {
     }
     this.render();
   }
+  /**
+   * ajax error callback function
+   * @param {none}
+   * @return {none}
+   */
   getWeatherDataError() {
     console.log("There was an error getting weather data");
   }
+  /**
+   * ajax complete callback function
+   * @param {none}
+   * @return {none}
+   */
   getWeatherDataAlways() {
     console.log("Get weather data complete");
   }
+  /**
+   * sets new coordinates and calls getWeatherData
+   * @param {number} lat
+   * @param {number} lng
+   * @return {none}
+   */
   getNewWeather(lat, lng){
     this.coord = { lat, lng };
     this.getWeatherData();
   }
+  /**
+   * creates a new javascript Date object with linux time
+   * @param {number} linuxTime
+   * @return {object} javascript Date object
+   */
   createNewDate(linuxTime) {
     return new Date(linuxTime * 1000);
   }
