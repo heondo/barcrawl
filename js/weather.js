@@ -68,7 +68,6 @@ class WeatherData {
    * @return {none}
    */
   getWeatherDataSuccess(data) {
-    console.log(data);
     this.currentDate = this.createNewDate(data.currently.time);
     this.currentTemp = parseInt(data.currently.temperature);
     this.currentCondition = data.currently.summary;

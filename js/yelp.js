@@ -12,7 +12,6 @@ class Yelp {
     this.userLongitude = userLongitude;
     this.businessesData = null;
     this.businessesToDisplay = null;
-    this.errorProcessingData = this.errorProcessingData.bind(this);
     this.domElements = {
       businessContainer: $('.businessContainer')
     }
@@ -41,7 +40,6 @@ class Yelp {
         },
         success: (data) => {
           this.businessesData = data;
-          console.log('yelp', data);
           this.displayToBusinessList();
           resolve(data);
         },

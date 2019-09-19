@@ -20,7 +20,6 @@ class Marker {
    * @return {none}
   */
   renderUser = (position) => {
-    console.log(position);
     const userMark = new google.maps.Marker({
       position: position,
       map: this.map,
