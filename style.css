@@ -1,59 +1,333 @@
+@font-face {
+  font-family: manrope-reg;
+  src: url(assets/font/regular.otf)
+}
+
+@font-face {
+  font-family: manrope-bold;
+  src: url(assets/font/bold.otf)
+}
+
 body{
   height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(182, 182, 182);
+  padding: 0;
+  margin: 0;
 }
 
 .mainHeader {
   width: 100%;
-  border: 2px solid red;
 }
-.mainHeader > * {
-  margin: 0 auto;
-  display: inline-block;
-  width: 100%;
-  border: 2px solid red;
-  text-align: center;
-}
-.weatherContainer{
-  width: 100%;
-  display: flex;
+
+.headerName {
   height: 100px;
-  border: 1px solid black;
+  background-image: url('assets/images/bar-crawler-logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
-.searchBar {
-  width: 100%;
-  border: 2px solid green;
-  text-align: center;
-}
+
 .mainContainer {
   display: flex;
   width: 100%;
   height: 70%;
+  justify-content: center;
+  margin-top: 8px;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .mapContainer {
-  width: 60%;
+  width: 55%;
 }
+
 .eventsContainer, .businessContainer {
   width: 20%;
   text-align: center;
-  height: 500px;
-  overflow: auto;
+  height: 480px;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
 }
+
+.eventContainer {
+  margin-right: 1%;
+}
+
+.businessContainer {
+  margin-left: 0.4%;
+}
+
 .mapDisplay {
   text-align: center;
   height: 500px;
-  border: 2px solid blue;
 }
 
-.businessContainer > * {
-  border: 2px solid red;
-  margin: 0 auto;
-}
-.eventsContainer > * {
-  border: 2px solid blue;
-}
 .rating {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   height: 25px;
+}
+
+.business, .event {
+  font-family: manrope-reg;
+  background-size: 30px;
+  background-position: left;
+  background-repeat: no-repeat;
+  transition-duration: 500ms;
+  display: inline-block;
+  border-radius: 2px;
+  max-height: 25px;
+  margin-bottom: 1%;
+  color: rgb(53, 53, 53);
+  overflow: hidden;
+  width: 98%;
+  align-items: center;
+  justify-content: center;
+}
+
+.address {
+  font-size: .85em;
+  color: blue;
+}
+
+.event{
+  background-color: #CDFFF9;
+}
+
+.event-name {
+  text-align: center;
+}
+
+.business{
+  background-color: #C5D9E2;
+}
+
+.businessName {
+  margin-bottom : 10px;
+}
+
+
+.collapsed{
+  flex: 0;
+  margin: auto;
+  border: 0;
+}
+
+.expanded {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  flex: 1;
+  max-height: 100%;
+}
+
+.business:hover:not(.expanded) {
+  transform: scale(1.08);
+  z-index: 1;
+  cursor: pointer;
+  background-color: rgb(255, 192, 153);
+}
+.event:hover:not(.expanded) {
+  transform: scale(1.08);
+  z-index: 1;
+  cursor: pointer;
+  background-color: rgb(255, 192, 153);
+}
+
+/* WEATHER STYLING */
+.weatherContainer{
+  width: 100%;
+  display: flex;
+  height: 150px;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+.weatherIcon {
+  height: 80px;
+  width: 80px;
+}
+.weatherContainer > * {
+  display: flex;
+  flex-direction: column;
+  height: 130px;
+  width: 12%;
+  border: 2px solid #B3B5BB;
+  font-family: manrope-reg;
+  padding: 8px;
+  color: white;
+  text-shadow: 2px 2px #817F75;
+  background-size: stretch;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: text-bottom;
+}
+
+.WeatherHeader {
+  font-size: 1.4rem;
+}
+
+.weather_box_text {
+  font-size: 1rem;
+}
+
+/* Google Autocomplete */
+#description {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.pac-card {
+  margin: 10px 10px 0 0;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  font-family: Roboto;
+}
+
+#pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+}
+
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+.pac-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+#title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+#target {
+  width: 345px;
+}
+.businessInfoWindow *, .eventInfoWindow *{
+  padding: 5px;
+}
+
+.route{
+  border-radius: 15px;
+  border: 2px solid #FF8A5B;
+  padding: 5px;
+}
+.addLocation:hover{
+  background-color: lightgray;
+}
+
+.loading_screen {
+  font-family: manrope-bold;
+  display: flex;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #201f1e;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 3;
+}
+
+.loading_screen_button {
+  border: 1px solid white;
+  font-size: 50%;
+  width: 14%;
+  text-align: center;
+  left: 50%;
+}
+.loading_icon {
+  width: 400px;
+  height: 300px;
+  background-image: url('assets/images/loading2.gif');
+  margin: 0 auto;
+}
+
+.welcome_text {
+  margin: auto;
+  font-size: 600%;
+  color: white;
+}
+
+.slide_to_top {
+  top: -100%;
+  transition-duration: 1s;
+}
+.destinationsAddedContainer, .destinationsAdded{
+  display: flex;
+  align-items: center;
+}
+
+.destinationsAdded *{
+  max-height: 25px;
+  flex: 1;
+  margin: 3px;
+}
+.hidden {
+  display: none;
 }
