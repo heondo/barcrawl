@@ -316,4 +316,11 @@ body{
 }
 .destinationsAddedContainer, .destinationsAdded{
   display: flex;
+  align-items: center;
+}
+
+.destinationsAdded *{
+  max-height: 25px;
+  flex: 1;
+  margin: 3px;
 }
