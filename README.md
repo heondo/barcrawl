@@ -12,6 +12,16 @@ Hackathon project involving the combination of different data sources into an ap
   
 - Must be issue-managed via meistertask or trello
   - name your project 8.19 Team [your team number] Hackathon
+  
+### team 1
+  - James Cho
+  - Heondo Kim
+  - Edward Lee
+  - Uzair Ashraf
+
+### Idea: Barcrawl
+
+App that allows users to view nearby restaurants and bars. Users can also plot a route of their selected destinations, hopefully with a drivershare service. Utilizes Google Maps, Yelp, EventBrite, and Darkweather APIs to gather the data. 
 
 ### Judging Criteria
 - **Appeal** : is it visually appealing / well put together
@@ -21,30 +31,3 @@ Hackathon project involving the combination of different data sources into an ap
 - **Innovative / Transformative** : Did the project do something new and exciting?  Was it bold and tried to do things that haven't been done much.  Did it combine the data sources together in a way that was more useful than either source by itself
 - **Ease of Use / Understanding** : Was it easy to use the application / game, or if it was more complex, was the application or game able to provide you with tutorials or instructions that made understanding it a breeze.
 
-### teams
-
-- team 1
-    - James Cho
-    - Heondo Kim
-    - Edward Lee
-    - Uzair Ashraf
-- team 2
-    - Christine Le
-    - Lena Porina
-    - Sean Hughes
-    - Joseph Moberly
-- team 3
-    - Dane Maison
-    - Adison Lay
-    - Mitch O'Hair
-    - Aaron Domingo
-- team 4
-    - Christie Hui
-    - Anjaleena Barclay
-    - Jan Ong
-    - Noel Carino
-- team 5
-    - Michael Chang
-    - Tarun Padath
-    - Brena Patel
-    - Kevin Ihm
